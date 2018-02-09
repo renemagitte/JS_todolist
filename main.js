@@ -4,16 +4,18 @@ const unmadeTaskList = document.getElementById('unmadeTaskList');
 const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
 
 
+
+
+// Adding new task to unmade task list
 addTaskButton.addEventListener('click', function(){
     event.preventDefault();
-    //console.log(addTaskButton);
-    //console.log(addTaskInput.value);
-    // unmadeTaskList.innerText = addTaskInput.value;
-    
+
     const singleTaskWrapper = document.createElement('div');
     const checkDiv = document.createElement('div');
     const taskDiv = document.createElement('div');
     
+    const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+
     singleTaskWrapper.classList.add('singleTaskWrapper');
     checkDiv.classList.add('checkDiv');
     taskDiv.classList.add('taskDiv');
@@ -23,7 +25,20 @@ addTaskButton.addEventListener('click', function(){
     singleTaskWrapper.appendChild(taskDiv);
     
     checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
-    taskDiv.innerText = addTaskInput.value; 
+    taskDiv.innerHTML = addTaskInput.value; 
+    taskDiv.appendChild(removeSingleTaskButton); 
+    
+    
+    // Successfully removes single task (but gets error in console???)
+        removeSingleTaskButton.addEventListener('click', function(){
+            //console.log(this.parentNode.parentNode);
+            //this.parentNode.parentNode.removeChild(this.parentNode.lastChild)
+            
+            while (this.parentNode.parentNode.hasChildNodes()) {   
+                this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
+            }
+                
+        });
     
     
     /* Funkar:
@@ -33,15 +48,18 @@ addTaskButton.addEventListener('click', function(){
     
 });
 
+//removeSingleTaskButton.addEventListener('click', function(){
+//    while(this.parentNode.hasChildNodes()){
+//        this.parentNode.removeChild(this.parentNode.lastChild)
+//    }
+//});
 
+
+// Removing all tasks/children from div/parent
 removeUnmadeTasksButton.addEventListener('click', function(){
-    //unmadeTaskList.removeChild;
-    //unmadeTaskList.removeChild(unmadeTaskList.firstChild)
-    
     while(unmadeTaskList.hasChildNodes()){
         unmadeTaskList.removeChild(unmadeTaskList.lastChild)
     }
-    
 });
                                
 
