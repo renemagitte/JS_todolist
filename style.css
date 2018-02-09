@@ -3,4 +3,22 @@
     height: auto;
     border: 2px solid darkgray;
     padding: 20px;
+    box-sizing: border-box;
+}
+
+.singleTastWrapper{
+    width: 700px;
+    height: auto;
+}
+
+.checkDiv{
+    width: 5%;
+    background-color: aquamarine;
+    float: left;
+}
+
+.taskDiv{
+    width: 95%;
+    background-color: red;
+    float: left;
 }

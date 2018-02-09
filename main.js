@@ -4,19 +4,33 @@ const unmadeTaskList = document.getElementById('unmadeTaskList');
 const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
 
 
-removeUnmadeTasksButton
-
-
 addTaskButton.addEventListener('click', function(){
     event.preventDefault();
-    console.log(addTaskButton);
-    console.log(addTaskInput.value);
+    //console.log(addTaskButton);
+    //console.log(addTaskInput.value);
     // unmadeTaskList.innerText = addTaskInput.value;
     
-    const div = document.createElement('div');
-    //document.body.appendChild(div);
-    unmadeTaskList.appendChild(div);
-    div.innerText = addTaskInput.value; 
+    const singleTaskWrapper = document.createElement('div');
+    const checkDiv = document.createElement('div');
+    const taskDiv = document.createElement('div');
+    
+    singleTaskWrapper.classList.add('singleTaskWrapper');
+    checkDiv.classList.add('checkDiv');
+    taskDiv.classList.add('taskDiv');
+    
+    unmadeTaskList.appendChild(singleTaskWrapper);
+    singleTaskWrapper.appendChild(checkDiv);
+    singleTaskWrapper.appendChild(taskDiv);
+    
+    checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
+    taskDiv.innerText = addTaskInput.value; 
+    
+    
+    /* Funkar:
+    unmadeTaskList.appendChild(singleTaskWrapper);
+    singleTaskWrapper.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ' +           addTaskInput.value; 
+    */
+    
 });
 
 
