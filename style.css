@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-.singleTastWrapper{
+.singleTaskWrapper{
     width: 700px;
     height: auto;
 }
@@ -18,6 +18,23 @@
 }
 
 .taskDiv{
+    width: 95%;
+    background-color: red;
+    float: left;
+}
+
+.singleCompleteTaskWrapper{
+    width: 700px;
+    height: auto;
+}
+
+.checkCompleteDiv{
+    width: 5%;
+    background-color: aquamarine;
+    float: left;
+}
+
+.taskCompleteDiv{
     width: 95%;
     background-color: red;
     float: left;

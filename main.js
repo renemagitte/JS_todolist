@@ -2,7 +2,10 @@ const addTaskInput = document.getElementById('addTaskInput');
 const addTaskButton = document.getElementById('addTaskButton');
 const unmadeTaskList = document.getElementById('unmadeTaskList');
 const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
+var storageOfCurrentlyMovingTask;
 
+
+const completedTaskList = document.getElementById('completedTaskList');
 
 
 
@@ -15,6 +18,7 @@ addTaskButton.addEventListener('click', function(){
     const taskDiv = document.createElement('div');
     
     const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+    
 
     singleTaskWrapper.classList.add('singleTaskWrapper');
     checkDiv.classList.add('checkDiv');
@@ -28,12 +32,28 @@ addTaskButton.addEventListener('click', function(){
     taskDiv.innerHTML = addTaskInput.value; 
     taskDiv.appendChild(removeSingleTaskButton); 
     
+    addTaskInput.value = ''; // clearing input field again after current task has been added
     
-    // Successfully removes single task (but gets error in console???)
+// Checking off a task and moving it to complete list
+        checkDiv.addEventListener('click', function(){
+            completedTaskList.appendChild(singleTaskWrapper);
+            
+                this.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> ';
+            
+        });          
+
+            
+//            while (this.parentNode.parentNode.hasChildNodes()) {   
+//                this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
+//            }
+
+//            }
+    
+// Successfully removes single task (but gets error in console???)
         removeSingleTaskButton.addEventListener('click', function(){
             //console.log(this.parentNode.parentNode);
             //this.parentNode.parentNode.removeChild(this.parentNode.lastChild)
-            
+
             while (this.parentNode.parentNode.hasChildNodes()) {   
                 this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
             }
@@ -41,12 +61,21 @@ addTaskButton.addEventListener('click', function(){
         });
     
     
+
+    
+            
+    
+// Checking off a task and moving it to complete list
+    
+    
     /* Funkar:
     unmadeTaskList.appendChild(singleTaskWrapper);
     singleTaskWrapper.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ' +           addTaskInput.value; 
     */
     
-});
+
+
+
 
 //removeSingleTaskButton.addEventListener('click', function(){
 //    while(this.parentNode.hasChildNodes()){
@@ -61,6 +90,8 @@ removeUnmadeTasksButton.addEventListener('click', function(){
         unmadeTaskList.removeChild(unmadeTaskList.lastChild)
     }
 });
+    
+}) // end of addTask(Button)
                                
 
 //addTaskInput.addEventListener('submit', function(){
