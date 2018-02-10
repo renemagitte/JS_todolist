@@ -1,147 +1,129 @@
 const addTaskInput = document.getElementById('addTaskInput');
 const addTaskButton = document.getElementById('addTaskButton');
 const unmadeTaskList = document.getElementById('unmadeTaskList');
+const completedTaskList = document.getElementById('completedTaskList');
 const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
+const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 var storageOfCurrentlyMovingTask;
 var arrayOfTasks = [];
+var arrayOfIncompleteTasks = []; //byta ut mor en varibal som endast innehåller ett nummer? +1 för varje task som läggs till??
+var doublet;
 
 
-const completedTaskList = document.getElementById('completedTaskList');
 
+/* --------------- */
+/* EVENT LISTENERS */
+/* --------------- */
 
-
-// Adding new task to unmade task list
+// ADD NEW TASK EVENT
 addTaskButton.addEventListener('click', function(){
+    addTodo();
+})
+
+//// COMPLETE TASK
+//checkDiv.addEventListener('click', function(){
+//    console.log(this);
+//    //completeTask(checkDiv.nextElementSibling.innerText);
+//}); 
+
+
+// REMOVE LIST OF UNMADE TASKS
+removeUnmadeTasksButton.addEventListener('click', function(){
+    removeListOfTasks(unmadeTaskList);
+})
+
+// REMOVE LIST OF COMPLETED TASKS
+removeCompletedTasksButton.addEventListener('click', function(){
+    removeListOfTasks(completedTaskList);
+})
+
+/* --------------- */
+/*    FUNCTIONS    */
+/* --------------- */
+
+// ADDING NEW TASK TO UNMADE TASK LIST
+function addTodo(){
     event.preventDefault();
+   
+    if(doubletCheck(addTaskInput.value)){
+       alert("Sorry, there can't be two identical tasks. But don't worry, you'll add a better one. There are plenty of tasks in the sea.");
+       }else{
+    
+        arrayOfTasks.push(addTaskInput.value);
+        arrayOfIncompleteTasks.push(addTaskInput.value);
+          
+        // Creating DOM elements...   
+        const singleTaskWrapper = document.createElement('div');
+        const checkDiv = document.createElement('div');
+        const taskDiv = document.createElement('div');
+        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+           
+        // ...add classes/styling to these elements...    
+        singleTaskWrapper.classList.add('singleTaskWrapper');
+        checkDiv.classList.add('checkDiv');
+        taskDiv.classList.add('taskDiv');
 
-    const singleTaskWrapper = document.createElement('div');
-    const checkDiv = document.createElement('div');
-    const taskDiv = document.createElement('div');
- 
-    const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+        // Release of js-elements into DOM
+        unmadeTaskList.appendChild(singleTaskWrapper);
+        singleTaskWrapper.appendChild(checkDiv);
+        singleTaskWrapper.appendChild(taskDiv);
+            
+        // Filling the elements with content
+        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
+        taskDiv.innerHTML = addTaskInput.value; 
+        taskDiv.appendChild(removeSingleTaskButton); 
     
-    //lägga in i array med listpunkter
+        addTaskInput.value = ''; // clearing input field again after current task has been added
 
-    
-    
-    doubletCheck(addTaskInput.value);
-    
-    singleTaskWrapper.classList.add('singleTaskWrapper');
-    checkDiv.classList.add('checkDiv');
-    taskDiv.classList.add('taskDiv');
-    
-    unmadeTaskList.appendChild(singleTaskWrapper);
-    singleTaskWrapper.appendChild(checkDiv);
-    singleTaskWrapper.appendChild(taskDiv);
-    
-    checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
-    taskDiv.innerHTML = addTaskInput.value; 
-    taskDiv.appendChild(removeSingleTaskButton); 
-    
-    arrayOfTasks.push(addTaskInput.value);
-    
-    addTaskInput.value = ''; // clearing input field again after current task has been added
-    
-// Checking off a task and moving it to complete list
+           
+        // EVENTLISTENER: COMPLETE TASK
+        // try to move this outside
         checkDiv.addEventListener('click', function(){
             completedTaskList.appendChild(singleTaskWrapper);
             this.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> ';
         });          
-
-            
+//    
+//           // Successfully removes single task (but gets error in console???)
+//        removeSingleTaskButton.addEventListener('click', function(){
+//            //console.log(this.parentNode.parentNode);
+//            //this.parentNode.parentNode.removeChild(this.parentNode.lastChild)
+//
 //            while (this.parentNode.parentNode.hasChildNodes()) {   
 //                this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
 //            }
-
-//            }
-    
-// Successfully removes single task (but gets error in console???)
-        removeSingleTaskButton.addEventListener('click', function(){
-            //console.log(this.parentNode.parentNode);
-            //this.parentNode.parentNode.removeChild(this.parentNode.lastChild)
-
-            while (this.parentNode.parentNode.hasChildNodes()) {   
-                this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
-            }
-                
-        });
-    
-    
-
-    
-            
-    
-// Checking off a task and moving it to complete list
-    
-    
-    /* Funkar:
-    unmadeTaskList.appendChild(singleTaskWrapper);
-    singleTaskWrapper.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ' +           addTaskInput.value; 
-    */
-    
-
-
-
-
-//removeSingleTaskButton.addEventListener('click', function(){
-//    while(this.parentNode.hasChildNodes()){
-//        this.parentNode.removeChild(this.parentNode.lastChild)
-//    }
-//});
-
-
-// Removing all tasks/children from div/parent
-removeUnmadeTasksButton.addEventListener('click', function(){
-    while(unmadeTaskList.hasChildNodes()){
-        unmadeTaskList.removeChild(unmadeTaskList.lastChild)
-    }
-});
-    
-}) // end of addTask(Button)
-
-
-                                function doubletCheck(taskToCheck){
-                                    for (i = 0; i < arrayOfTasks.length; i++) {
-                                            if(taskToCheck === arrayOfTasks[i]){
-                                                  console.log("Denna uppgift finns redan!");
-                                            }else{
-                                                    console.log("ok task");
-                                            }
-                                    }
-                    
-                                }
-
-
-//                                function doubletCheck(taskToCheck){
-//                                    //counting rows in task list for preparing for loop.
-//                                    
-//NodeList.prototype.forEach = Array.prototype.forEach
-//var children = unmadeTaskList.childNodes;
-//children.forEach(function(item){
-//    console.log(item);
-//});
-////                                    var allTasks = document.getElementById("unmadeTaskList").childElementCount + 1;
-////                                       
-////                                    //console.log(allTasks);
-////                                    console.log(taskDiv.innerText);
-////                                    
-////                                    for (i = 0; i < allTasks.length; i++) {
-////                                        
-////                                        console.log(taskDiv.innerText);
-////                                        
-//////                                            if(taskToCheck === taskDiv.innerText){
-//////                                                console.log("Denna uppgift finns redan!");
-//////                                            }else{
-//////                                                console.log("ok task");
-//////                                            }
-////                                    }
-//                                    
-//                              
-//                                }
-                               
-
-//addTaskInput.addEventListener('submit', function(){
-//    event.preventDefault();
-//
+//                
+//        });
 //    
-//});
+//    
+
+
+
+           
+           
+       } // end of doubletCheck
+} // end of addTodo
+
+//COMPLETE TASK
+//function completeTask(){
+//   completedTaskList.appendChild(singleTaskWrapper);
+//    this.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>  
+//}
+
+
+// REMOVE ALL TASKS OF A LIST
+function removeListOfTasks(list){
+    while(list.hasChildNodes()){
+        list.removeChild(list.lastChild)
+    }
+} 
+
+// CHECK FOR DOUBLET IN ARRAY OF ALL (BOTH COMPLETE/INCOMPLETE) TASKS.
+function doubletCheck(taskToCheck){
+    for (i = 0; i < arrayOfTasks.length; i++) {
+            if(taskToCheck === arrayOfTasks[i]){
+                return true;
+            }else{
+                return false;
+            }
+    }
+}
