@@ -27,6 +27,7 @@ addTaskButton.addEventListener('click', function(){
 //}); 
 
 
+
 // REMOVE LIST OF UNMADE TASKS
 removeUnmadeTasksButton.addEventListener('click', function(){
     removeListOfTasks(unmadeTaskList);
@@ -78,10 +79,15 @@ function addTodo(){
            
         // EVENTLISTENER: COMPLETE TASK
         // try to move this outside
+        // kanske genom att ta ur checkdiv-siblings innertext, skicka med i funktion..
+        // eller fatta hur man returnerar (som house och person-exemplet på lektionen!!! fatta det!!)
+           
         checkDiv.addEventListener('click', function(){
             completedTaskList.appendChild(singleTaskWrapper);
-            this.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> ';
-        });          
+            checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> ';
+        });   
+           
+           
 //    
 //           // Successfully removes single task (but gets error in console???)
 //        removeSingleTaskButton.addEventListener('click', function(){
@@ -109,6 +115,11 @@ function addTodo(){
 //    this.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>  
 //}
 
+//// COMPLETE TASK
+//function completeTask(checkmark, wrapperToComplete){
+//            completedTaskList.appendChild(wrapperToComplete);
+//            checkmark.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> ';
+//} 
 
 // REMOVE ALL TASKS OF A LIST
 function removeListOfTasks(list){
