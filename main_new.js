@@ -11,9 +11,124 @@ var doublet;
 
 
 
-/* --------------- */
-/* EVENT LISTENERS */
-/* --------------- */
+var allTasks = [];
+
+function TaskObj(task, complete){
+        this.task = task;
+        this.complete = Boolean;
+}
+
+addTaskButton.addEventListener('click', function(){
+//    saveTodoToArray();
+//    var currentTodo = addTaskInput.value;
+    
+    var newTask = addTaskInput.value;
+    
+    saveTaskToArray(newTask);
+
+    createTaskRowElement(newTask);
+})
+
+
+//function saveTaskToArray(){
+//    event.preventDefault();
+//    
+//    var newTask = new TaskObj(addTaskInput.value, false); 
+//
+//    allTasks.push(newTask);
+//    
+//    //console.log(allTasks[0].task);
+//    
+//    //loc_array[loc_array.length-1]
+//    //console.log(allTasks[allTasks.length-1].task);
+//}
+
+function saveTaskToArray(taskToSave){
+    event.preventDefault();
+    
+    var newTaskObj = new TaskObj(taskToSave, false); 
+
+    allTasks.push(newTaskObj);
+    
+    
+
+//    allTasks.push(new TaskObj(taskToSave, false));
+    
+    
+    
+    //console.log(allTasks[0].task);
+    //loc_array[loc_array.length-1]
+    //console.log(allTasks[allTasks.length-1].task);
+}
+
+
+
+
+
+//allTasks[allTasks.length-1.task]
+
+function createTaskRowElement(){
+    
+        // Creating DOM elements...   
+        const singleTaskWrapper = document.createElement('div');
+        const checkDiv = document.createElement('div');
+        const taskDiv = document.createElement('div');
+        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+           
+        // ...add classes/styling to these elements...    
+        singleTaskWrapper.classList.add('singleTaskWrapper');
+        checkDiv.classList.add('checkDiv');
+        taskDiv.classList.add('taskDiv');
+
+        // Release of js-elements into DOM
+        unmadeTaskList.appendChild(singleTaskWrapper);
+        singleTaskWrapper.appendChild(checkDiv);
+        singleTaskWrapper.appendChild(taskDiv);
+            
+        // Filling the elements with content
+        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
+        taskDiv.innerHTML = allTasks[allTasks.length-1].task; //lägger till sista task från arrayen
+        taskDiv.appendChild(removeSingleTaskButton); 
+    
+    
+}
+
+//console.log(data[0].Value);
+
+
+//console.log(allTasks[task]);
+//console.log(allTasks[task]);
+//console.log(allTasks.task);
+//console.log(allTasks.task);
+//console.log(allTasks.task);
+//
+
+
+
+
+
+
+
+//______________________________________________________________________
+/*
+
+
+const addTaskInput = document.getElementById('addTaskInput');
+const addTaskButton = document.getElementById('addTaskButton');
+const unmadeTaskList = document.getElementById('unmadeTaskList');
+const completedTaskList = document.getElementById('completedTaskList');
+const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
+const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
+var storageOfCurrentlyMovingTask;
+var arrayOfTasks = [];
+var arrayOfIncompleteTasks = []; //byta ut mor en varibal som endast innehåller ett nummer? +1 för varje task som läggs till??
+var doublet;
+
+
+
+
+EVENT LISTENERS
+
 
 // ADD NEW TASK EVENT
 addTaskButton.addEventListener('click', function(){
@@ -38,9 +153,9 @@ removeCompletedTasksButton.addEventListener('click', function(){
     removeListOfTasks(completedTaskList);
 })
 
-/* --------------- */
-/*    FUNCTIONS    */
-/* --------------- */
+
+FUNCTIONS    
+
 
 // ADDING NEW TASK TO UNMADE TASK LIST
 function addTodo(){
@@ -137,4 +252,6 @@ function doubletCheck(taskToCheck){
                 return false;
             }
     }
-}
+
+    
+*/
