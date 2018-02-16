@@ -9,14 +9,16 @@ const removeCompletedTasksButton = document.getElementById('removeCompletedTasks
 
 var allTasks = [];
 
-function taskObj(task, complete){
+function taskObj(task, completed){
         this.task = task;
-        this.complete = status;
+        this.completed = completed;
+
 }
 
 addTaskButton.addEventListener('click', function(){
     
     var newTask = addTaskInput.value;
+    //var newTaskStatus = 'false';
     
     saveTaskToArray(newTask);
     
@@ -26,10 +28,10 @@ addTaskButton.addEventListener('click', function(){
     
 })
 
-function saveTaskToArray(taskToSave){
+function saveTaskToArray(taskToSave,){
     event.preventDefault();
     
-    var newTaskObj = new taskObj(taskToSave, false); 
+    var newTaskObj = new taskObj(taskToSave, true); 
 
     allTasks.push(newTaskObj);
 
@@ -39,11 +41,9 @@ function saveTaskToArray(taskToSave){
 
 function forLoopTest(){
     for(var i in allTasks){
-        console.log(allTasks[i].task);  
-        console.log(allTasks[i].complete);  
         
         var fetchTaskFromArray = allTasks[i].task;
-        var fetchStatusFromArray = allTasks[i].complete; 
+        var fetchStatusFromArray = allTasks[i].completed; 
         
         createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray);
         
@@ -72,7 +72,11 @@ function createTaskRowElement(task, status){
         singleTaskWrapper.appendChild(taskDiv);
             
         // Filling the elements with content
-        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> ';
+        if(status === false){
+        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> '
+        }else if(status === true){
+        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> '   
+        }
         taskDiv.innerHTML = task;
         taskDiv.appendChild(removeSingleTaskButton); 
     
@@ -106,3 +110,19 @@ function createTaskRowElement(task, status){
 //    
 //    
 //}
+
+//let htmlBlock = "";
+//// the loop create ALL html
+//for(const taskRow of tasksElement){
+//   htmlBlock += `
+//    <section>
+//    <h2>${article.title}</h2>
+//    <p>${article.content}</p>
+//    </section>
+//`; 
+//
+//}
+// append to DOM efter you are done
+//output.innerHTML = htmlBlock
+
+//output.insertAdjacentHTML('afterbegin', htmlBlock);
