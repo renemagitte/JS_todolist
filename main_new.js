@@ -6,32 +6,36 @@ const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 
 
+const list = document.getElementById('list');
+
+
 
 var allTasks = [];
 
 function taskObj(task, completed){
         this.task = task;
         this.completed = completed;
-
 }
 
 addTaskButton.addEventListener('click', function(){
     
-    var newTask = addTaskInput.value;
-    //var newTaskStatus = 'false';
+    saveTaskToArray();
     
-    saveTaskToArray(newTask);
-    
-    //createTaskRowElement(newTask);
+    // clearing existing list so allTasks-array can be looped out again with new task included
+    removeListOfTasks(list);
     
     forLoopTest();
     
 })
 
-function saveTaskToArray(taskToSave,){
+function saveTaskToArray(){
     event.preventDefault();
     
-    var newTaskObj = new taskObj(taskToSave, true); 
+    var newTask = addTaskInput.value;
+    
+    var newTaskObj = new taskObj(newTask, true); // adding status: task != completed yet
+    
+   // var newTaskObj = new taskObj(addTaskInput.value, false); 
 
     allTasks.push(newTaskObj);
 
@@ -41,6 +45,8 @@ function saveTaskToArray(taskToSave,){
 
 function forLoopTest(){
     for(var i in allTasks){
+                                //console.log(allTasks[i].task);  
+                                console.log(allTasks[i].completed);  
         
         var fetchTaskFromArray = allTasks[i].task;
         var fetchStatusFromArray = allTasks[i].completed; 
@@ -52,36 +58,87 @@ function forLoopTest(){
 
 }
 
-//testar med parametrar:
+//test med parametrar OCH insertAdjacentHTML
 function createTaskRowElement(task, status){
-    
-        // Creating DOM elements...   
-        const singleTaskWrapper = document.createElement('div');
-        const checkDiv = document.createElement('div');
-        const taskDiv = document.createElement('div');
-        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
-           
-        // ...add classes/styling to these elements...    
-        singleTaskWrapper.classList.add('singleTaskWrapper');
-        checkDiv.classList.add('checkDiv');
-        taskDiv.classList.add('taskDiv');
+    let htmlBlock = "";
 
-        // Release of js-elements into DOM
-        unmadeTaskList.appendChild(singleTaskWrapper);
-        singleTaskWrapper.appendChild(checkDiv);
-        singleTaskWrapper.appendChild(taskDiv);
-            
-        // Filling the elements with content
-        if(status === false){
-        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> '
-        }else if(status === true){
-        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> '   
-        }
-        taskDiv.innerHTML = task;
-        taskDiv.appendChild(removeSingleTaskButton); 
+       htmlBlock += `
+        <div class="singleTaskWrapper">
+            <div class="checkDiv">
+                ${trueOrFalse(status)}
+            </div>
+            <div class="taskDiv">
+                ${task}
+            </div>
+        </div>
+    `; 
+//list.innerHTML = htmlBlock;
+list.insertAdjacentHTML('afterbegin', htmlBlock);
     
-    
+//        // Creating DOM elements...   
+//        const singleTaskWrapper = document.createElement('div');
+//        const checkDiv = document.createElement('div');
+//        const taskDiv = document.createElement('div');
+//        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+//           
+//        // ...add classes/styling to these elements...    
+//        singleTaskWrapper.classList.add('singleTaskWrapper');
+//        checkDiv.classList.add('checkDiv');
+//        taskDiv.classList.add('taskDiv');
+//
+//        // Release of js-elements into DOM
+//        unmadeTaskList.appendChild(singleTaskWrapper);
+//        singleTaskWrapper.appendChild(checkDiv);
+//        singleTaskWrapper.appendChild(taskDiv);
+//            
+//        // Filling the elements with content
+//        if(status === false){
+//        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> '
+//        }else if(status === true){
+//        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> '   
+//        }
+//        taskDiv.innerHTML = task;
+//        taskDiv.appendChild(removeSingleTaskButton); 
 }
+
+
+function trueOrFalse(status){
+            if(status === false){
+            return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>`;
+            }else if(status === true){
+            return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`; 
+            }
+}
+
+
+//testar med parametrar, funkar jättebra:
+//function createTaskRowElement(task, status){
+//    
+//        // Creating DOM elements...   
+//        const singleTaskWrapper = document.createElement('div');
+//        const checkDiv = document.createElement('div');
+//        const taskDiv = document.createElement('div');
+//        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+//           
+//        // ...add classes/styling to these elements...    
+//        singleTaskWrapper.classList.add('singleTaskWrapper');
+//        checkDiv.classList.add('checkDiv');
+//        taskDiv.classList.add('taskDiv');
+//
+//        // Release of js-elements into DOM
+//        unmadeTaskList.appendChild(singleTaskWrapper);
+//        singleTaskWrapper.appendChild(checkDiv);
+//        singleTaskWrapper.appendChild(taskDiv);
+//            
+//        // Filling the elements with content
+//        if(status === false){
+//        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span> '
+//        }else if(status === true){
+//        checkDiv.innerHTML = '<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> '   
+//        }
+//        taskDiv.innerHTML = task;
+//        taskDiv.appendChild(removeSingleTaskButton); 
+//}
 
 
 // funkar jättebra!!:
@@ -126,3 +183,10 @@ function createTaskRowElement(task, status){
 //output.innerHTML = htmlBlock
 
 //output.insertAdjacentHTML('afterbegin', htmlBlock);
+
+
+function removeListOfTasks(list){
+    while(list.hasChildNodes()){
+        list.removeChild(list.lastChild)
+    }
+} 
