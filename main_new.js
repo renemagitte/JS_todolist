@@ -3,7 +3,7 @@ const addTaskButton = document.getElementById('addTaskButton');
 //const unmadeTaskList = document.getElementById('unmadeTaskList');
 //const completedTaskList = document.getElementById('completedTaskList');
 //const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
-//const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
+const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 
 
 const list = document.getElementById('list');
@@ -19,10 +19,16 @@ function taskObj(task, completed){
 
 addTaskButton.addEventListener('click', function(){ 
     if(!(doubletCheck())){  
-        saveTaskToArray(); 
+        saveTaskToArray();
         removeListOfTasks(list); // clearing existing list...
         fetchTaskListFromArray(); // ...so array can be looped out again with new task included
     }
+})
+
+removeCompletedTasksButton.addEventListener('click', function(){ 
+    removeAllCompletedTasks();
+    removeListOfTasks(list); 
+    fetchTaskListFromArray();
 })
 
 function removeSingleTask(index) {
@@ -30,6 +36,7 @@ function removeSingleTask(index) {
     removeListOfTasks(list); 
     fetchTaskListFromArray();
 }
+
 
 function completeTask(index) {
     allTasks[index].completed = true;
@@ -43,6 +50,16 @@ function saveTaskToArray(){
     addTaskInput.value = ''; // clear input field, thus preparing for next input
     var newTaskObj = new taskObj(newTask, false); // adding status: task != completed yet
     allTasks.push(newTaskObj);
+    
+    localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
+    
+
+    //localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
+    
+//var retrievedObject = localStorage.getItem('newTaskObj');
+
+//console.log('retrievedObject: ', JSON.parse(retrievedObject));
+    
 }
 
 function fetchTaskListFromArray(){
@@ -52,8 +69,26 @@ function fetchTaskListFromArray(){
         var fetchStatusFromArray = allTasks[i].completed; 
         var fetchTaskIndexFromArray = allTasks.indexOf(allTasks[i]);
         
-        createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);       
+        createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
+        
+
     }
+    
+    var retrievedObject = localStorage.getItem('newTaskObj');
+    
+//    for(var i in retrievedObject){
+//        console.log(JSON.parse(localStorage.getItem('task')));
+//    }
+    
+//    var retrievedObject = localStorage.getItem('newTaskObj');
+//    
+//    //console.log(retrievedObject[i].task);
+//    
+//    for(var i in retrievedObject){
+//        //var fetchTaskFromArray = 
+//        //console.log('retrievedObject: ', JSON.parse(retrievedObject.task));
+//        console.log(JSON.parse(retrievedObject[i].task));
+//    }
 }
 
 function doubletCheck(){
@@ -67,7 +102,7 @@ function doubletCheck(){
                 alert(`
                 Sorry, there can't be two identical tasks. 
                 But don't worry, you'll add a better one. 
-                There are plenty of tasks in the sea.
+                There are plenty of tasks in the sea!
                 `);  
                 return true;
             }
@@ -153,11 +188,16 @@ function trueOrFalse(status){
 }
 
 
-
-
-
 function removeListOfTasks(list){
     while(list.hasChildNodes()){
         list.removeChild(list.lastChild)
     }
+}
+
+function removeAllCompletedTasks(){
+    for (i = 0; i < allTasks.length; i++) {
+        if(allTasks[i].completed === true){
+            allTasks.splice(i, 1); 
+        } 
+    }   
 }
