@@ -40,7 +40,8 @@ function removeSingleTask(index) {
 
 function completeTask(index) {
     allTasks[index].completed = true;
-    removeListOfTasks(list); 
+    removeListOfTasks(list);
+    removeListOfTasks(completedTaskList); 
     fetchTaskListFromArray();
 }
 
@@ -115,6 +116,11 @@ function createTaskRowElement(task, status, index){
         // Creating DOM elements...   
         const singleTaskWrapper = document.createElement('div');
         const checkDiv = document.createElement('div');
+    
+            //checkDiv.setAttribute("id", "checkAnimaionId");
+    
+            //checkDiv.classList.add('checkAnimaionId');
+    
         const taskDiv = document.createElement('div');
         const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
         const completeTaskButton = document.createElement("button");
@@ -144,6 +150,8 @@ function createTaskRowElement(task, status, index){
     
             //completeTaskButton.addEventListener('click', function(){
             checkDiv.addEventListener('click', function(){
+                
+                checkDiv.setAttribute("id", "checkAnimaionId");
 
 // TEST ZONE PROJECT: "A TASK COMPLETE, MAKES THE HEART BEAT"
 //            let heart = checkDiv.innerHTML;
@@ -167,12 +175,18 @@ function createTaskRowElement(task, status, index){
 ////            document.body.removeChild(document.body.lastElementChild);
 ////          }, 400); 
 //            
-//          setTimeout(function (){
-//            completeTask(index);
-//          }, 1201);  
+          setTimeout(function (){
+        event.preventDefault();
+            console.log(completeTask(index));
+            //completeTask(index);
+            //checkDiv.setAttribute("id", "checkAnimaionId");
+              
+          }, 3000);  
+                
+           // completeTask(index);
 //            
             
-            completeTask(index);
+            //completeTask(index);
                 
 
                 
@@ -208,5 +222,9 @@ function removeAllCompletedTasks(){
         if(allTasks[i].completed === true){
             allTasks.splice(i, 1); 
         } 
-    }   
+    }
+    
+    removeListOfTasks(list);
+    removeListOfTasks(completedTaskList); 
+    fetchTaskListFromArray();
 }

@@ -63,11 +63,12 @@ body{
 .singleTaskWrapper{
     width: 100%;
     height: auto;
+    padding-left: 20px;
 }
 
 .checkDiv{
     width: 15%;
-    height: 35px;
+    height: 45px;
     float: left;
     text-align: center;
     font-size: 28px;
@@ -75,8 +76,10 @@ body{
 
 .taskDiv{
     width: 85%;
-    height: 35px;
+    min-height: 45px;
     float: left;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-weight: 400;
 }
     
     
@@ -108,6 +111,36 @@ body{
 .checkDiv{
     width: 5%;
     float: left;
+}
+
+@keyframes resize {
+  0% {
+    padding: 0;
+    height: 45px;
+    font-size: 28px;
+  }
+  50% {
+    height: 45px;
+    font-size: 32px;
+    color: darkred;
+  }
+  100% {
+    height: 45px;
+    font-size: 34px;
+    color: red;
+/*    padding: 0 100px;*/
+    
+/*    background-color:rgba(255,0,0,0.9);*/
+  }
+}
+
+
+#checkAnimaionId{
+  animation-name: resize;
+  animation-duration: 1s;
+  animation-iteration-count: 4;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;    
 }
 
 .checkDiv2{
