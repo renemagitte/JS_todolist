@@ -17,8 +17,15 @@
     float: left;
 }
 
+.checkDiv2{
+    width: 5%;
+    color: blueviolet;
+    font-size: 20px;
+    float: left;
+}
+
 .taskDiv{
-    width: 85%;
+    width: 95%;
     background-color: red;
     float: left;
 }

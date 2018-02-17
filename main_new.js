@@ -1,9 +1,9 @@
 const addTaskInput = document.getElementById('addTaskInput');
 const addTaskButton = document.getElementById('addTaskButton');
-const unmadeTaskList = document.getElementById('unmadeTaskList');
-const completedTaskList = document.getElementById('completedTaskList');
-const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
-const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
+//const unmadeTaskList = document.getElementById('unmadeTaskList');
+//const completedTaskList = document.getElementById('completedTaskList');
+//const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
+//const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 
 
 const list = document.getElementById('list');
@@ -18,9 +18,11 @@ function taskObj(task, completed){
 }
 
 addTaskButton.addEventListener('click', function(){ 
-    saveTaskToArray(); 
-    removeListOfTasks(list); // clearing existing list...
-    fetchTaskListFromArray(); // ...so array can be looped out again with new task included
+    if(!(doubletCheck())){  
+        saveTaskToArray(); 
+        removeListOfTasks(list); // clearing existing list...
+        fetchTaskListFromArray(); // ...so array can be looped out again with new task included
+    }
 })
 
 function removeSingleTask(index) {
@@ -54,6 +56,25 @@ function fetchTaskListFromArray(){
     }
 }
 
+function doubletCheck(){
+    event.preventDefault(); 
+    var newTask = addTaskInput.value;
+    
+    for (i = 0; i < allTasks.length; i++) {
+            if(!(newTask === allTasks[i].task)){
+                return false;
+            }else{
+                alert(`
+                Sorry, there can't be two identical tasks. 
+                But don't worry, you'll add a better one. 
+                There are plenty of tasks in the sea.
+                `);  
+                return true;
+            }
+    }
+    
+} //doubletCheck
+
 
 function createTaskRowElement(task, status, index){
     event.preventDefault();
@@ -81,9 +102,38 @@ function createTaskRowElement(task, status, index){
         taskDiv.innerHTML = task; 
         taskDiv.appendChild(removeSingleTaskButton);
     
-        completeTaskButton.addEventListener('click', function(){
+            completeTaskButton.addEventListener('click', function(){
+
+// TEST ZONE PROJECT: "A TASK COMPLETE, MAKES THE HEART BEAT"
+//            let heart = checkDiv.innerHTML;
+//            
+//                heart.animate([
+////                  { transform: 'translateX(0)'},
+////                  { transform: 'translateX(100px)'},
+////                  { transform: 'translateX(0)'}
+//                    checkDiv.classList.add('checkDiv2'),
+//                    checkDiv.classList.add('checkDiv') 
+//                  ],{
+//                    duration: 2000,
+//                    }
+//                             
+//                )
+//            
+//        //checkDiv.classList.add('checkDiv2');  
+//            
+//
+////          setTimeout(function (){
+////            document.body.removeChild(document.body.lastElementChild);
+////          }, 400); 
+//            
+//          setTimeout(function (){
+//            completeTask(index);
+//          }, 1201);  
+//            
+            
             completeTask(index);
-        })
+                
+            }) //completeTaskEventListener
     
         removeSingleTaskButton.addEventListener('click', function(){
             removeSingleTask(index);
@@ -110,17 +160,4 @@ function removeListOfTasks(list){
     while(list.hasChildNodes()){
         list.removeChild(list.lastChild)
     }
-}
-
-
-function buttonTest(){
-        removeSingleTaskButton.addEventListener('click', function(){
-            //console.log(this.parentNode.parentNode);
-            //this.parentNode.parentNode.removeChild(this.parentNode.lastChild)
-
-            while (this.parentNode.parentNode.hasChildNodes()) {   
-                this.parentNode.parentNode.removeChild(this.parentNode.parentNode.firstChild);
-            }
-
-        }); 
 }
