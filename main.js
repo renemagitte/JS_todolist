@@ -138,3 +138,45 @@ function doubletCheck(taskToCheck){
             }
     }
 }
+
+// insertAdjacentHTML!!!
+//FUNKAR med parametrar OCH insertAdjacentHTML.. men vet ej hur man skickar med index för att flytta/ta bort...
+//function createTaskRowElement(task, status, index){
+//    let htmlBlock = "";
+//
+//       htmlBlock += `
+//        <div class="singleTaskWrapper">
+//            <div class="checkDiv" id="checkDiv">
+//                ${trueOrFalse(status)}
+//            </div>
+//            <div class="taskDiv">
+//                ${task}
+//            </div>
+//            <div class="buttonDiv" id="removeSingleTaskButton">
+//                <span class="glyphicon glyphicon-glyphicon glyphicon-trash" aria-hidden="true"></span>
+//            </div>
+//        </div>
+//    `; 
+//
+////                 <a href="#" id="test">${removeSingleTask(index)}</a>    
+//// <button id="${removeSingleTaskButton}" value="${index}">Delete task</button> 
+////list.innerHTML = htmlBlock;
+//list.insertAdjacentHTML('afterbegin', htmlBlock);
+//}
+
+// insertAdjacentHTML mall...
+//let htmlBlock = "";
+//// the loop create ALL html
+//for(const taskRow of tasksElement){
+//   htmlBlock += `
+//    <section>
+//    <h2>${article.title}</h2>
+//    <p>${article.content}</p>
+//    </section>
+//`; 
+//
+//}
+// append to DOM efter you are done
+//output.innerHTML = htmlBlock
+
+//output.insertAdjacentHTML('afterbegin', htmlBlock);

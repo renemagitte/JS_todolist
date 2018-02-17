@@ -18,7 +18,13 @@
 }
 
 .taskDiv{
-    width: 95%;
+    width: 85%;
+    background-color: red;
+    float: left;
+}
+
+.buttonDiv{
+    width: 10%;
     background-color: red;
     float: left;
 }
