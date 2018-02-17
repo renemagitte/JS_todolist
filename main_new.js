@@ -1,11 +1,11 @@
 const addTaskInput = document.getElementById('addTaskInput');
 const addTaskButton = document.getElementById('addTaskButton');
 //const unmadeTaskList = document.getElementById('unmadeTaskList');
-//const completedTaskList = document.getElementById('completedTaskList');
 //const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 
 
+const completedTaskList = document.getElementById('completedTaskList');
 const list = document.getElementById('list');
 var singleTaskButton;
 const test = document.getElementById('test');
@@ -70,9 +70,7 @@ function fetchTaskListFromArray(){
         var fetchTaskIndexFromArray = allTasks.indexOf(allTasks[i]);
         
         createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
-        
-
-    }
+}
     
     var retrievedObject = localStorage.getItem('newTaskObj');
     
@@ -127,17 +125,25 @@ function createTaskRowElement(task, status, index){
         taskDiv.classList.add('taskDiv');
 
         // Release of js-elements into DOM
-        list.appendChild(singleTaskWrapper);
+        // list.appendChild(singleTaskWrapper);
+    
+        if(status === false){
+            list.appendChild(singleTaskWrapper);
+        }else if(status === true){
+            completedTaskList.appendChild(singleTaskWrapper);
+        }
+
         singleTaskWrapper.appendChild(checkDiv);
         singleTaskWrapper.appendChild(taskDiv);
             
         // Filling the elements with dynamic content
         checkDiv.innerHTML = trueOrFalse(status);
-        checkDiv.appendChild(completeTaskButton);
+        //checkDiv.appendChild(completeTaskButton);
         taskDiv.innerHTML = task; 
         taskDiv.appendChild(removeSingleTaskButton);
     
-            completeTaskButton.addEventListener('click', function(){
+            //completeTaskButton.addEventListener('click', function(){
+            checkDiv.addEventListener('click', function(){
 
 // TEST ZONE PROJECT: "A TASK COMPLETE, MAKES THE HEART BEAT"
 //            let heart = checkDiv.innerHTML;
@@ -168,6 +174,10 @@ function createTaskRowElement(task, status, index){
             
             completeTask(index);
                 
+
+                
+            
+                
             }) //completeTaskEventListener
     
         removeSingleTaskButton.addEventListener('click', function(){
@@ -180,13 +190,12 @@ function createTaskRowElement(task, status, index){
 
 
 function trueOrFalse(status){
-            if(status === false){
-            return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>`;
-            }else if(status === true){
-            return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`; 
-            }
+        if(status === false){
+        return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>`;
+        }else if(status === true){
+        return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`; 
+        }
 }
-
 
 function removeListOfTasks(list){
     while(list.hasChildNodes()){

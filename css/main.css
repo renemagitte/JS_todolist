@@ -1,7 +1,101 @@
+
+body{
+/*    background-image: url('../images/heartsbg.jpg');*/
+    font-family: 'Poppins', sans-serif;
+}
+
+.header{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: black;
+    text-align-last: center;
+    padding-top: 0px;
+    height: 200px;
+    margin: 0px auto;
+
+}
+
+.subtitle{
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+.ToDo_wrapper{
+    padding-left: 20px;
+   height: 200px;
+    border: 1px solid red;
+}
+
+.ToDo_title{
+    float: left;
+    font-size: 94px;
+    margin-top: -24px;
+}
+
+.heart_title{
+    float: left;
+}
+
+/* Mobile */
+@media screen and (max-width: 699px) {
+
+.header{
+    width: 100%;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+    
+.subtitle{
+    font-size: 2.3rem;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+    
+.heart-title{
+    font-size: 24px;
+    color: darkred;
+}
+    
+.list{
+    width: 100%; 
+    background-color: greenyellow;
+}
+    
+.singleTaskWrapper{
+    width: 100%;
+    height: auto;
+}
+
+.checkDiv{
+    width: 15%;
+    height: 35px;
+    float: left;
+    text-align: center;
+    font-size: 28px;
+}
+
+.taskDiv{
+    width: 85%;
+    height: 35px;
+    float: left;
+}
+    
+    
+}
+
+/* Tablet */
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+
+}
+
+
 .box{
     width: 700px;
     height: auto;
-    border: 2px solid darkgray;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -13,7 +107,6 @@
 
 .checkDiv{
     width: 5%;
-    background-color: aquamarine;
     float: left;
 }
 
@@ -26,13 +119,12 @@
 
 .taskDiv{
     width: 95%;
-    background-color: red;
     float: left;
 }
 
 .buttonDiv{
     width: 10%;
-    background-color: red;
+/*    background-color: red;*/
     float: left;
 }
 
@@ -49,7 +141,6 @@
 
 .taskCompleteDiv{
     width: 95%;
-    background-color: red;
     float: left;
 }
 
@@ -59,14 +150,11 @@
     font-size: 10rem;
     color: black;
     background-color: gainsboro;
-    padding: 20px;
+/*    padding: 20px;*/
 
 }
 
-.subtitle{
-    font-size: 2.5rem;
-    font-family: 'Gloria Hallelujah', cursive;
-}
+
 
 .heart-title{
     font-size: 8rem;

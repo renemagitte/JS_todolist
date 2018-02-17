@@ -11,11 +11,24 @@
     
 </head>
 <body>
+<!--<wrapper>-->
 
-<div class="title">
+<div class="header">
     <span class="subtitle">List of things i would love</span><br>
-    T<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty heart-title" aria-hidden="true"></span> 
-    D<span class="glyphicon glyphicon-glyphicon glyphicon-heart heart-title" aria-hidden="true"></span> 
+    <div class="ToDo_wrapper">
+        <div class="ToDo_title">
+            T
+        </div>
+        <div class="heart_title">
+            <span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty heart-title" aria-hidden="true"></span>
+        </div>
+        <div class="ToDo_title">
+            D
+        </div>
+        <div class="heart_title">
+            <span class="glyphicon glyphicon-glyphicon glyphicon-heart heart-title" aria-hidden="true"></span> 
+        </div>
+    </div>
 </div>
 
 <div class="box">
@@ -25,11 +38,13 @@
         <input type="submit" id="addTaskButton" value="Lägg till uppgift">
 <!--    </form>-->
 </div>
-
-<div id="list">
-
-
+ 
+<div id="list"></div>
+   
+<div id="completedTaskList">
+    Completed tasks:
 </div>
+    
     <button id="removeCompletedTasksButton">Delete finished todos.</button>
     <button id="removeUnmadeTasksButton">Delete all todos.</button>
     
@@ -47,6 +62,7 @@
     <button id="removeCompletedTasksButton">Ta bort samtliga gjorda uppgifter</button>
 -->
     
+<!--    </wrapper>-->
     <script src="main_new.js"></script> 
 </body>
 </html>
