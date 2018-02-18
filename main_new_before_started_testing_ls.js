@@ -60,8 +60,6 @@ function createTaskRowElement(taskParameter, status, index){
     /* Creating DOM elements... */ 
     const singleTaskWrapper = document.createElement('div');
     const checkDiv = document.createElement('div');
-        //checkDiv.setAttribute("id", "checkAnimaionId");
-        //checkDiv.classList.add('checkAnimaionId');
     const taskDiv = document.createElement('div');
     const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
 
