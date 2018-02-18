@@ -48,15 +48,7 @@ function saveTaskToArray(){
     var newTask = addTaskInput.value;
     addTaskInput.value = ''; // clear input field, thus preparing for next input
     var newTaskObj = new taskObj(newTask, false); // adding status: task != completed yet
-    allTasks.push(newTaskObj);
-    
-// ****LS TEST****
-    localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
-    
-    console.log( JSON.parse( localStorage.getItem( 'newTaskObj.task' ) ) );
-    //console.log( JSON.parse(localStorage.getItem('newTaskObj'))[0]);
-// ****LS TEST****
-    
+    allTasks.push(newTaskObj);  
 }
 
 function createTaskRowElement(task, status, index){
@@ -117,21 +109,11 @@ function fetchTaskListFromArray(){
         var fetchTaskFromArray = allTasks[i].task;
         var fetchStatusFromArray = allTasks[i].completed; 
         var fetchTaskIndexFromArray = allTasks.indexOf(allTasks[i]);
+
         createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
     }
 }
 
-// ****LS TEST****
-function fetchTaskListFromLocalStorage(){
-    for(var i in localStorage){
- //       console.log(JSON.parse(localStorage.getItem("newTaskObj"))[i]);
-//        var fetchTaskFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
-//        var fetchStatusFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
-//        var fetchTaskIndexFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
-        createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
-    }
-}
-// ****LS TEST****
 
 function completeTask(index) {
     allTasks[index].completed = true;
@@ -153,8 +135,11 @@ function removeSingleTask(index) {
 //buggig funktion?????!!!:
 function removeCompletedTasksFromArray(){
     for (i = 0; i <= allTasks.length; i++) {
-        if(allTasks[i].completed === true){
+
+        if(allTasks[i].completed === true){ 
+            
             allTasks.splice(i, 1); 
+            
         } 
     }
 }

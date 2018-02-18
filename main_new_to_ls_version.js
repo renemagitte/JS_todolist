@@ -9,6 +9,7 @@ const addTaskButton = document.getElementById('addTaskButton');
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
+
 var allTasks = [
     {
      task: 'Bygga ett altare tillägnat Paddy McAloon',
@@ -20,6 +21,8 @@ function taskObj(task, completed){
     this.task = task;
     this.completed = completed;
 }
+
+var localStorage;
 
 /* Event Listeners (exists also inside createTaskRowElement-function) */
 
@@ -62,7 +65,7 @@ function saveTaskToArray(){
 // ****LS TEST****
     //localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
     
-    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    localStorage = localStorage.setItem('allTasks', JSON.stringify(allTasks));
     
     
     
@@ -140,7 +143,9 @@ function fetchTaskListFromLocalStorage(){
     
     for(var i = 0; i < localStorage.length; i++){
         
-        var dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
+        //funkar om man har denna med:
+        dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
+        
         console.log(dataFromLocalStorage[i].task);
         console.log(dataFromLocalStorage[i].completed);
         console.log(dataFromLocalStorage.indexOf(dataFromLocalStorage[i]));
@@ -164,7 +169,7 @@ function fetchTaskListFromLocalStorage(){
 }
 // ****LS TEST****
 
-function completeTask(task) {
+function completeTask(index) {
     // ****LS TEST****
     // hitta objekt där task i task-parameter i local storage
     // och byta status till completed där.
@@ -172,8 +177,11 @@ function completeTask(task) {
     
     //allTasks[index].completed = true;
     
+    dataFromLocalStorage[index].completed = true;
+    
     removeListElement(list); // clearing existing list...
     removeListElement(completedTaskList);
+    
     fetchTaskListFromArray();
 }
 
