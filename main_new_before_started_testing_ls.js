@@ -9,7 +9,12 @@ const addTaskButton = document.getElementById('addTaskButton');
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
-var allTasks = [];
+var allTasks = [
+    {
+     task: 'Bygga ett altare tillägnat Paddy McAloon',
+    completed: false
+    }
+];
 
 function taskObj(task, completed){
     this.task = task;
@@ -51,7 +56,7 @@ function saveTaskToArray(){
     allTasks.push(newTaskObj);  
 }
 
-function createTaskRowElement(task, status, index){
+function createTaskRowElement(taskParameter, status, index){
     /* Creating DOM elements... */ 
     const singleTaskWrapper = document.createElement('div');
     const checkDiv = document.createElement('div');
@@ -59,17 +64,18 @@ function createTaskRowElement(task, status, index){
         //checkDiv.classList.add('checkAnimaionId');
     const taskDiv = document.createElement('div');
     const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
-            removeSingleTaskButton.classList.add('button_delete');
-            removeSingleTaskButton.setAttribute("value", "Delete");
 
     /* ...add classes/styling to these elements... */    
     singleTaskWrapper.classList.add('singleTaskWrapper');
     checkDiv.classList.add('checkDiv');
-        //checkDiv.classList.add('fadeIn');
     taskDiv.classList.add('taskDiv');
+    // If task is equal to most recent added task in array, it means it's new and deserves a fade in-animation:
+    if(allTasks[allTasks.length-1].task === taskParameter){
+        checkDiv.classList.add('fadeIn');
+    }
 
     /* Release of js-elements into DOM */
-            // list.appendChild(singleTaskWrapper);
+    // Checking if task should go to incomplete or completed list 
     if(status === false){
         list.appendChild(singleTaskWrapper);
     }else if(status === true){
@@ -82,14 +88,19 @@ function createTaskRowElement(task, status, index){
     /* Filling the elements with dynamic content */
     checkDiv.innerHTML = trueOrFalse(status);
     //checkDiv.appendChild(completeTaskButton);
-    taskDiv.innerHTML = task; 
+    taskDiv.innerHTML = taskParameter;
     taskDiv.appendChild(removeSingleTaskButton);
+            removeSingleTaskButton.classList.add('button_delete');
+            removeSingleTaskButton.setAttribute("value", "Delete");
 
         checkDiv.addEventListener('click', function(){
             checkDiv.setAttribute("id", "checkAnimaionId");
             checkDiv.innerHTML = `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`;
-            checkDiv.classList.add('fadeOut');
-
+            
+                setTimeout(function (){
+                  checkDiv.setAttribute("id", "checkAnimaionId2");
+              }, 1400); 
+            
               setTimeout(function (){
                   completeTask(index); 
               }, 2000);  
@@ -136,9 +147,12 @@ function removeSingleTask(index) {
 function removeCompletedTasksFromArray(){
     for (i = 0; i <= allTasks.length; i++) {
 
-        if(allTasks[i].completed === true){ 
+        if(allTasks[i].completed = true){ 
             
-            allTasks.splice(i, 1); 
+            //removeSingleTask(i);
+            
+            allTasks.splice(allTasks[i], 1); 
+            //allTasks.splice(i); 
             
         } 
     }

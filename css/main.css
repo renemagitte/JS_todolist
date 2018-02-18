@@ -80,6 +80,79 @@ body{
 
 }
 
+/* Animations */
+
+#checkAnimaionId{
+  animation-name: heartbeat;
+  animation-duration: 0.4s;
+  animation-iteration-count: 4;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;    
+}
+
+@keyframes heartbeat {
+  0% {
+    padding: 0;
+    height: 45px;
+    font-size: 28px;
+  }
+  50% {
+    height: 45px;
+    font-size: 30px;
+    color: darkred;
+  }
+  100% {
+    height: 45px;
+    font-size: 32px;
+    color: red;
+
+  }
+}
+
+.fadeIn {
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+  0% {
+    padding: 0;
+    height: 45px;
+    opacity: 0;
+    color: red;
+  }
+  50% {
+    height: 45px;
+    color: darkred;
+  }
+  100% {
+    height: 45px;
+    opacity: 1;
+
+  }
+}
+
+#checkAnimaionId2 {
+    animation: fadeout 1s;
+}
+
+@keyframes fadeout {
+  0% {
+    padding: 0;
+    height: 45px;
+    opacity: 1;
+    color: red;
+  }
+  50% {
+    height: 45px;
+    color: darkred;
+  }
+  100% {
+    height: 45px;
+    opacity: 0;
+
+  }
+}
+
 
 /* Mobile */
 @media screen and (max-width: 699px) {
@@ -172,51 +245,6 @@ body{
 .checkDiv{
     width: 5%;
     float: left;
-}
-
-@keyframes resize {
-  0% {
-    padding: 0;
-    height: 45px;
-    font-size: 28px;
-  }
-  50% {
-    height: 45px;
-    font-size: 32px;
-    color: darkred;
-  }
-  100% {
-    height: 45px;
-    font-size: 34px;
-    color: red;
-/*    padding: 0 100px;*/
-    
-/*    background-color:rgba(255,0,0,0.9);*/
-  }
-}
-
-
-#checkAnimaionId{
-  animation-name: resize;
-  animation-duration: 0.5s;
-  animation-iteration-count: 4;
-  animation-direction: alternate;
-  animation-timing-function: ease-in-out;    
-}
-
-.fadeIn {
-
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s 2s, opacity 2s linear;
-
- 
-}
-
-.fadeOut {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 1.5s 1.5s, opacity 2s linear;
 }
 
 .checkDiv2{
