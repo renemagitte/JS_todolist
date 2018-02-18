@@ -9,7 +9,6 @@ const addTaskButton = document.getElementById('addTaskButton');
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
-//var allTasks = [];
 var allTasks = [
     {
      task: 'Bygga ett altare tillägnat Paddy McAloon',
@@ -111,7 +110,9 @@ function createTaskRowElement(task, status, index){
             checkDiv.classList.add('fadeOut');
 
               setTimeout(function (){
-                  completeTask(index); 
+                  completeTask(index);
+
+                  
               }, 2000);  
         }) 
 
@@ -140,16 +141,16 @@ function fetchTaskListFromLocalStorage(){
     for(var i = 0; i < localStorage.length; i++){
         
         var dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
-//        console.log(dataFromLocalStorage[i].task);
-//        console.log(dataFromLocalStorage[i].completed);
-//        console.log(dataFromLocalStorage[i].indexOf(allTasks[i]));
+        console.log(dataFromLocalStorage[i].task);
+        console.log(dataFromLocalStorage[i].completed);
+        console.log(dataFromLocalStorage.indexOf(dataFromLocalStorage[i]));
         
         var fetchTaskFromArray = dataFromLocalStorage[i].task;
         var fetchStatusFromArray = dataFromLocalStorage[i].completed; 
-        //var fetchTaskIndexFromArray = dataFromLocalStorage[i].indexOf(allTasks[i]);
+        var fetchTaskIndexFromArray = dataFromLocalStorage.indexOf(dataFromLocalStorage[i]);
 
-       //createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
-       createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray);
+
+       createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
         
     
 
@@ -163,8 +164,14 @@ function fetchTaskListFromLocalStorage(){
 }
 // ****LS TEST****
 
-function completeTask(index) {
-    allTasks[index].completed = true;
+function completeTask(task) {
+    // ****LS TEST****
+    // hitta objekt där task i task-parameter i local storage
+    // och byta status till completed där.
+    
+    
+    //allTasks[index].completed = true;
+    
     removeListElement(list); // clearing existing list...
     removeListElement(completedTaskList);
     fetchTaskListFromArray();
