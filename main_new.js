@@ -1,14 +1,13 @@
-const addTaskInput = document.getElementById('addTaskInput');
-const addTaskButton = document.getElementById('addTaskButton');
 //const unmadeTaskList = document.getElementById('unmadeTaskList');
-//const removeUnmadeTasksButton = document.getElementById('removeUnmadeTasksButton');
-const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
 
+/* DOM Elements */
 
 const completedTaskList = document.getElementById('completedTaskList');
 const list = document.getElementById('list');
-var singleTaskButton;
-const test = document.getElementById('test');
+const addTaskInput = document.getElementById('addTaskInput');
+const addTaskButton = document.getElementById('addTaskButton');
+const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
+const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 var allTasks = [];
 
@@ -17,33 +16,32 @@ function taskObj(task, completed){
     this.completed = completed;
 }
 
+/* Event Listeners (exists also inside createTaskRowElement-function) */
+
 addTaskButton.addEventListener('click', function(){ 
     if(!(doubletCheck())){  
         saveTaskToArray();
-        removeListOfTasks(list); // clearing existing list...
+        removeListElement(list); // clearing existing list...
+        removeListElement(completedTaskList);
         fetchTaskListFromArray(); // ...so array can be looped out again with new task included
     }
 })
 
 removeCompletedTasksButton.addEventListener('click', function(){ 
-    removeAllCompletedTasks();
-    removeListOfTasks(list); 
+    removeCompletedTasksFromArray();
+    removeListElement(list);
+    removeListElement(completedTaskList);
     fetchTaskListFromArray();
 })
 
-function removeSingleTask(index) {
-    allTasks.splice(index, 1);
-    removeListOfTasks(list); 
+removeAllTasksButton.addEventListener('click', function(){ 
+    removeAllTasksFromArray();
+    removeListElement(list); // clearing existing list...
+    removeListElement(completedTaskList);
     fetchTaskListFromArray();
-}
+})
 
-
-function completeTask(index) {
-    allTasks[index].completed = true;
-    removeListOfTasks(list);
-    removeListOfTasks(completedTaskList); 
-    fetchTaskListFromArray();
-}
+/* Functions */
 
 function saveTaskToArray(){
     event.preventDefault(); 
@@ -52,42 +50,117 @@ function saveTaskToArray(){
     var newTaskObj = new taskObj(newTask, false); // adding status: task != completed yet
     allTasks.push(newTaskObj);
     
+// ****LS TEST****
     localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
     
-
-    //localStorage.setItem('newTaskObj', JSON.stringify(newTaskObj));
+    console.log( JSON.parse( localStorage.getItem( 'newTaskObj.task' ) ) );
+    //console.log( JSON.parse(localStorage.getItem('newTaskObj'))[0]);
+// ****LS TEST****
     
-//var retrievedObject = localStorage.getItem('newTaskObj');
+}
 
-//console.log('retrievedObject: ', JSON.parse(retrievedObject));
+function createTaskRowElement(task, status, index){
+    /* Creating DOM elements... */ 
+    const singleTaskWrapper = document.createElement('div');
+    const checkDiv = document.createElement('div');
+        //checkDiv.setAttribute("id", "checkAnimaionId");
+        //checkDiv.classList.add('checkAnimaionId');
+    const taskDiv = document.createElement('div');
+    const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+            removeSingleTaskButton.classList.add('button_delete');
+            removeSingleTaskButton.setAttribute("value", "Delete");
+
+    /* ...add classes/styling to these elements... */    
+    singleTaskWrapper.classList.add('singleTaskWrapper');
+    checkDiv.classList.add('checkDiv');
+        //checkDiv.classList.add('fadeIn');
+    taskDiv.classList.add('taskDiv');
+
+    /* Release of js-elements into DOM */
+            // list.appendChild(singleTaskWrapper);
+    if(status === false){
+        list.appendChild(singleTaskWrapper);
+    }else if(status === true){
+        completedTaskList.appendChild(singleTaskWrapper);
+    }
+
+    singleTaskWrapper.appendChild(checkDiv);
+    singleTaskWrapper.appendChild(taskDiv);
+
+    /* Filling the elements with dynamic content */
+    checkDiv.innerHTML = trueOrFalse(status);
+    //checkDiv.appendChild(completeTaskButton);
+    taskDiv.innerHTML = task; 
+    taskDiv.appendChild(removeSingleTaskButton);
+
+        checkDiv.addEventListener('click', function(){
+            checkDiv.setAttribute("id", "checkAnimaionId");
+            checkDiv.innerHTML = `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`;
+            checkDiv.classList.add('fadeOut');
+
+              setTimeout(function (){
+                  completeTask(index); 
+              }, 2000);  
+        }) 
+
+        removeSingleTaskButton.addEventListener('click', function(){
+            removeSingleTask(index);
+            removeListElement(list);
+            removeListElement(completedTaskList);
+            fetchTaskListFromArray();
+        })
     
 }
 
 function fetchTaskListFromArray(){
     for(var i in allTasks){
-
         var fetchTaskFromArray = allTasks[i].task;
         var fetchStatusFromArray = allTasks[i].completed; 
         var fetchTaskIndexFromArray = allTasks.indexOf(allTasks[i]);
-        
         createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
+    }
 }
-    
-    var retrievedObject = localStorage.getItem('newTaskObj');
-    
-//    for(var i in retrievedObject){
-//        console.log(JSON.parse(localStorage.getItem('task')));
-//    }
-    
-//    var retrievedObject = localStorage.getItem('newTaskObj');
-//    
-//    //console.log(retrievedObject[i].task);
-//    
-//    for(var i in retrievedObject){
-//        //var fetchTaskFromArray = 
-//        //console.log('retrievedObject: ', JSON.parse(retrievedObject.task));
-//        console.log(JSON.parse(retrievedObject[i].task));
-//    }
+
+// ****LS TEST****
+function fetchTaskListFromLocalStorage(){
+    for(var i in localStorage){
+ //       console.log(JSON.parse(localStorage.getItem("newTaskObj"))[i]);
+//        var fetchTaskFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
+//        var fetchStatusFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
+//        var fetchTaskIndexFromArray = JSON.parse(localStorage.getItem("newTaskObj"))[i];
+        createTaskRowElement(fetchTaskFromArray, fetchStatusFromArray, fetchTaskIndexFromArray);
+    }
+}
+// ****LS TEST****
+
+function completeTask(index) {
+    allTasks[index].completed = true;
+    removeListElement(list); // clearing existing list...
+    removeListElement(completedTaskList);
+    fetchTaskListFromArray();
+}
+
+function removeListElement(listToRemove){
+    while(listToRemove.hasChildNodes()){
+        listToRemove.removeChild(listToRemove.lastChild)
+    }
+}
+
+function removeSingleTask(index) {
+    allTasks.splice(index, 1);
+}
+
+//buggig funktion?????!!!:
+function removeCompletedTasksFromArray(){
+    for (i = 0; i <= allTasks.length; i++) {
+        if(allTasks[i].completed === true){
+            allTasks.splice(i, 1); 
+        } 
+    }
+}
+
+function removeAllTasksFromArray(status){
+    allTasks = [];
 }
 
 function doubletCheck(){
@@ -105,103 +178,8 @@ function doubletCheck(){
                 `);  
                 return true;
             }
-    }
-    
-} //doubletCheck
-
-
-function createTaskRowElement(task, status, index){
-    event.preventDefault();
-    
-        // Creating DOM elements...   
-        const singleTaskWrapper = document.createElement('div');
-        const checkDiv = document.createElement('div');
-    
-            //checkDiv.setAttribute("id", "checkAnimaionId");
-    
-            //checkDiv.classList.add('checkAnimaionId');
-    
-        const taskDiv = document.createElement('div');
-        const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
-        const completeTaskButton = document.createElement("button");
-    
-        // ...add classes/styling to these elements...    
-        singleTaskWrapper.classList.add('singleTaskWrapper');
-        checkDiv.classList.add('checkDiv');
-        taskDiv.classList.add('taskDiv');
-
-        // Release of js-elements into DOM
-        // list.appendChild(singleTaskWrapper);
-    
-        if(status === false){
-            list.appendChild(singleTaskWrapper);
-        }else if(status === true){
-            completedTaskList.appendChild(singleTaskWrapper);
-        }
-
-        singleTaskWrapper.appendChild(checkDiv);
-        singleTaskWrapper.appendChild(taskDiv);
-            
-        // Filling the elements with dynamic content
-        checkDiv.innerHTML = trueOrFalse(status);
-        //checkDiv.appendChild(completeTaskButton);
-        taskDiv.innerHTML = task; 
-        taskDiv.appendChild(removeSingleTaskButton);
-    
-            //completeTaskButton.addEventListener('click', function(){
-            checkDiv.addEventListener('click', function(){
-                
-                checkDiv.setAttribute("id", "checkAnimaionId");
-
-// TEST ZONE PROJECT: "A TASK COMPLETE, MAKES THE HEART BEAT"
-//            let heart = checkDiv.innerHTML;
-//            
-//                heart.animate([
-////                  { transform: 'translateX(0)'},
-////                  { transform: 'translateX(100px)'},
-////                  { transform: 'translateX(0)'}
-//                    checkDiv.classList.add('checkDiv2'),
-//                    checkDiv.classList.add('checkDiv') 
-//                  ],{
-//                    duration: 2000,
-//                    }
-//                             
-//                )
-//            
-//        //checkDiv.classList.add('checkDiv2');  
-//            
-//
-////          setTimeout(function (){
-////            document.body.removeChild(document.body.lastElementChild);
-////          }, 400); 
-//            
-          setTimeout(function (){
-        event.preventDefault();
-            console.log(completeTask(index));
-            //completeTask(index);
-            //checkDiv.setAttribute("id", "checkAnimaionId");
-              
-          }, 3000);  
-                
-           // completeTask(index);
-//            
-            
-            //completeTask(index);
-                
-
-                
-            
-                
-            }) //completeTaskEventListener
-    
-        removeSingleTaskButton.addEventListener('click', function(){
-            removeSingleTask(index);
-        })
-    
+    }  
 }
-
-
-
 
 function trueOrFalse(status){
         if(status === false){
@@ -209,22 +187,4 @@ function trueOrFalse(status){
         }else if(status === true){
         return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`; 
         }
-}
-
-function removeListOfTasks(list){
-    while(list.hasChildNodes()){
-        list.removeChild(list.lastChild)
-    }
-}
-
-function removeAllCompletedTasks(){
-    for (i = 0; i < allTasks.length; i++) {
-        if(allTasks[i].completed === true){
-            allTasks.splice(i, 1); 
-        } 
-    }
-    
-    removeListOfTasks(list);
-    removeListOfTasks(completedTaskList); 
-    fetchTaskListFromArray();
 }

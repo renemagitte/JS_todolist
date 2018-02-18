@@ -10,54 +10,101 @@ body{
     color: black;
     text-align-last: center;
     padding-top: 0px;
-    height: 200px;
+    height: auto;
     margin: 0px auto;
+    width: 100%;
 
 }
 
 .subtitle{
     font-family: 'Gloria Hallelujah', cursive;
+    font-size: 2.3rem;
 }
 
 .ToDo_wrapper{
     padding-left: 20px;
-   height: 200px;
-    border: 1px solid red;
+    height: 100px;
+    display: flex;
+    justify-content: center;
 }
 
 .ToDo_title{
     float: left;
     font-size: 94px;
-    margin-top: -24px;
+    margin-top: -18px;
 }
 
 .heart_title{
     float: left;
+    font-size: 82px;
+    color: darkred;
 }
+
+.heart_title_2{
+    float: left;
+    font-size: 82px;
+    color: darkred;
+}
+
+.list_title{
+    width: 100%;
+    padding-left: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: black;
+/*    border-top: 1px solid darkred;*/
+}
+
+.box{
+    text-align: center;
+    width: 100%;
+}
+
+.button_wrapper{
+    text-align: center;
+}
+
+.button_delete {
+    background-color: #4CAF50; /* Green */
+/*
+    border: none;
+    color: #4CAF50;
+    padding: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.6px;
+    margin: 4px 2px; */
+    border-radius: 15px;
+
+}
+
 
 /* Mobile */
 @media screen and (max-width: 699px) {
 
-.header{
-    width: 100%;
-    margin-top: 0px;
-    padding-top: 0px;
-}
+
     
 .subtitle{
-    font-size: 2.3rem;
-    margin-top: 0px;
-    padding-top: 0px;
+    margin-top: 10px;
+    padding-top: 10px;
 }
     
-.heart-title{
-    font-size: 24px;
-    color: darkred;
+.box{
+    text-align: center;
+    width: 100%;
 }
+
     
 .list{
     width: 100%; 
-    background-color: greenyellow;
+    min-height: 45px;
+}
+    
+.completedTaskList{
+    width: 100%; 
+    min-height: 45px;
 }
     
 .singleTaskWrapper{
@@ -80,6 +127,8 @@ body{
     float: left;
     font-family: 'Gloria Hallelujah', cursive;
     font-weight: 400;
+    padding-top: 6px;
+    padding-left: 10px;
 }
     
     
@@ -88,7 +137,19 @@ body{
 /* Tablet */
 @media screen and (min-width: 700px) and (max-width: 1023px) {
 
+.subtitle{
+    margin-top: 0px;
+    padding-top: 0px;
 }
+    
+.singleTaskWrapper{
+    margin: 0px auto;
+    width: 70%;
+    height: auto;
+    border: 1px solid red;
+}
+    
+} /* /tablet */
 
 /* Desktop */
 @media screen and (min-width: 1024px) {
@@ -137,10 +198,25 @@ body{
 
 #checkAnimaionId{
   animation-name: resize;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-iteration-count: 4;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;    
+}
+
+.fadeIn {
+
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s 2s, opacity 2s linear;
+
+ 
+}
+
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1.5s 1.5s, opacity 2s linear;
 }
 
 .checkDiv2{
@@ -185,11 +261,4 @@ body{
     background-color: gainsboro;
 /*    padding: 20px;*/
 
-}
-
-
-
-.heart-title{
-    font-size: 8rem;
-    color: darkred;
 }

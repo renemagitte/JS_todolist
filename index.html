@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TO-DO-LIST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -11,7 +12,6 @@
     
 </head>
 <body>
-<!--<wrapper>-->
 
 <div class="header">
     <span class="subtitle">List of things i would love</span><br>
@@ -20,51 +20,40 @@
             T
         </div>
         <div class="heart_title">
-            <span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty heart-title" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
         </div>
         <div class="ToDo_title">
             D
         </div>
-        <div class="heart_title">
-            <span class="glyphicon glyphicon-glyphicon glyphicon-heart heart-title" aria-hidden="true"></span> 
+        <div class="heart_title_2">
+            <span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span> 
         </div>
     </div>
 </div>
 
 <div class="box">
     Ny uppgift:
-<!--    <form id="addTaskForm">-->
+
         <input type="text" id="addTaskInput">
-        <input type="submit" id="addTaskButton" value="Lägg till uppgift">
-<!--    </form>-->
+        <input type="submit" id="addTaskButton" value="Add task">
+
 </div>
  
-To be done:
-<div id="list"></div>
+    <div class="list_title">TO BE DONE:</div>
+<div class="list" id="list"></div>
  
-Allready did: 
-<div id="completedTaskList">
-    Completed tasks:
+    <div class="list_title">ALLREADY DID: </div>
+<div class="completedTaskList" id="completedTaskList">
+    No tasks here yet.
+</div>
+   
+<div class="button_wrapper">
+    
+    <button class="button_delete" id="removeCompletedTasksButton">Delete finished todos.</button>
+    <button class="button_delete" id="removeAllTasksButton">Delete all todos.</button>
 </div>
     
-    <button id="removeCompletedTasksButton">Delete finished todos.</button>
-    <button id="removeUnmadeTasksButton">Delete all todos.</button>
-    
-<!--
-<div class="box">
-   Att göra:
-    <div id="unmadeTaskList"></div>
-</div>
-    <button id="removeUnmadeTasksButton">Ta bort samtliga ogjorda uppgifter</button>
-    
-<div class="box">
-   Slutförda uppgifter:
-    <div id="completedTaskList"></div>
-</div>
-    <button id="removeCompletedTasksButton">Ta bort samtliga gjorda uppgifter</button>
--->
-    
-<!--    </wrapper>-->
+
     <script src="main_new.js"></script> 
 </body>
 </html>
