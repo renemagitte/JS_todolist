@@ -1,10 +1,11 @@
 
 body{
+    font-family: 'Poppins', sans-serif;
     margin: 0px auto;
 }
 
 .clear{
-    clear: both;
+    clear:both;
 }
 
 .header{
@@ -12,24 +13,15 @@ body{
     font-weight: 800;
     color: black;
     text-align-last: center;
-    padding-top: 20px;
+    padding-top: 0px;
     height: auto;
     margin: 0px auto;
     width: 100%;
 }
 
-.box{
-    width: 100%;
-    margin: 0px auto;
-    text-align: center;
-    padding-top: 20px;
-}
-
 .subtitle{
     font-family: 'Gloria Hallelujah', cursive;
     font-size: 2.3rem;
-    margin-top: 20px;
-    padding-top: 20px;
 }
 
 .ToDo_wrapper{
@@ -51,10 +43,10 @@ body{
     color: darkred;
 }
 
-.box{
-    text-align: center;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
+.heart_title_2{
+    float: left;
+    font-size: 82px;
+    color: darkred;
 }
 
 #addTaskInput{
@@ -63,21 +55,8 @@ body{
     border-bottom: 2px dotted grey;
 }
 
-.addTaskButton{
-    font-size: 14px;
-    color: black;
-    background-color: #e7e7e7;
-    border: 1px grey;
-    border-radius: 25%;
-    height: 30px;
-    width: 30px;
-    margin-left: 10px;
-}
-
 .list_title{
     width: 100%;
-    margin: 0px auto;
-    padding: 20px;
     padding-left: 20px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -85,169 +64,39 @@ body{
     color: black;
 }
 
-.list{
-    min-height: 38px;
-    margin: 0px auto;
-}
-
-.completedTaskList{
-    min-height: 38px;
-    margin: 0px auto;
-}
-
-.singleTaskWrapper{
-    margin: 0px auto;
-    height: auto;
-    width: 100%;
-}
-
-.checkDiv{
-    width: 8%;
-    height: 38px;
-    float: left;
+.box{
     text-align: center;
-    font-size: 28px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .taskDiv{
-    width: 92%;
-    min-height: 38px;
     float: left;
-    padding-top: 6px;
     font-family: 'Gloria Hallelujah', cursive;
-    font-weight: 400;
-}
-
-.button_delete_single {
-    font-size: 8px;
-    color: black;
-    font-family: 'Poppins', sans-serif;
-    background-color: #e7e7e7;
-    border: 1px grey;
-    border-radius: 20px;
-    height: 16px;
-    width: 40px;
-    margin-left: 10px;
 }
 
 .button_wrapper{
     text-align: center;
-    padding: 20px; 
-}  
+}
+
+.addTaskButton{
+    font-size: 14px;
+    color: white;
+    background-color: darkred;
+    //border: 1px solid black;
+/*    border-radius: 20px;*/
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}   
 
 .button_delete {
-    font-size: 14px;
-    color: black;
-    background-color: #e7e7e7;
-    border: 1px grey;
-    border-radius: 20px;
-    height: 30px;
-    width: 160px;
-    margin-left: 10px;
+    background-color: #4CAF50;
+    border-radius: 15px;
 }
 
-.footer{
-    margin: 0px auto;
-    padding-top: 120px;
-    padding-right: 45px;
-    text-align: right;
-    font-size: 18px;
-    font-family: 'League Script', cursive;
-    color: rebeccapurple;
-}
-
-
-/*** Mobile ***/
-@media screen and (max-width: 500px) {
-
-    #addTaskInput{
-        width: 240px;
-    }
-    
-    .list_title{
-        width: 100%; 
-    }
-    
-    .list{
-        width: 100%; 
-    }
-    
-    .completedTaskList{
-        width: 100%; 
-    }
-    
-    .singleTaskWrapper{
-        padding-left: 25px;
-    }
-
-    .taskDiv{
-        padding-left: 10px;
-    }
-
-} /* end Mobile*/
-
-
-/* Tablet */
-@media screen and (min-width: 501px) and (max-width: 1023px) {
-
-    #addTaskInput{
-        width: 376px;
-    }
-    
-    .list_title{
-        width: 600px;
-    }
-    
-    .list{
-        width: 600px;
-    }
-    
-    .completedTaskList{
-        width: 600px;
-    }
-    
-    .singleTaskWrapper{
-        padding-left: 10px;
-    }
-
-    .taskDiv{
-        padding-left: 15px;
-    }
-    
-} /* end Tablet */
-
-
-/*** Desktop ***/
-@media screen and (min-width: 1024px) {
-
-    #addTaskInput{
-        width: 440px;
-    }
-    
-    .list_title{
-        width: 600px;
-    }
-    
-    .list{
-        width: 600px;
-    }
-    
-    .completedTaskList{
-        width: 600px;
-    }
-    
-    .singleTaskWrapper{
-        padding-left: 10px;
-    }
-
-    .taskDiv{
-        padding-left: 15px;
-    }
-
-} /* end Desktop */
-
-
-/*** Animations ***/
+/* Animations */
 
 #checkAnimaionId{
   animation-name: heartbeat;
@@ -272,6 +121,7 @@ body{
     height: 38px;
     font-size: 32px;
     color: red;
+
   }
 }
 
@@ -293,6 +143,7 @@ body{
   100% {
     height: 38px;
     opacity: 1;
+
   }
 }
 
@@ -314,5 +165,168 @@ body{
   100% {
     height: 38px;
     opacity: 0;
+
   }
 }
+
+.singleTaskWrapper{
+    width: 700px;
+    height: auto;
+}
+
+
+/* Mobile */
+@media screen and (max-width: 699px) {
+  
+.subtitle{
+    margin-top: 10px;
+    padding-top: 10px;
+}
+    
+.box{
+    padding-top: 20px;
+}
+
+#addTaskInput{
+    width: 240px;
+}
+    
+.list_title{
+    margin: 0px auto;
+    padding: 20px;
+    padding-left: 40px;
+}
+    
+.list{
+    width: 100%; 
+    min-height: 38px;
+    margin: 0px auto;  
+}
+    
+.completedTaskList{
+    width: 100%; 
+    min-height: 45px;
+}
+    
+.singleTaskWrapper{
+    width: 100%;
+    height: auto;
+    margin: 0px auto;
+    padding-left: 25px;
+}
+
+.checkDiv{
+    width: 8%;
+    height: 38px;
+    float: left;
+    text-align: center;
+    font-size: 28px;
+
+}
+
+.taskDiv{
+    width: 92%;
+    min-height: 38px;
+    font-weight: 400;
+    padding-top: 6px;
+    padding-left: 10px;
+}
+    
+.button_wrapper{
+    padding: 20px; 
+}
+    
+    
+}
+
+/* Tablet */
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+
+.subtitle{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+    
+    #addTaskInput{
+        width: 300px;
+    }
+    
+.singleTaskWrapper{
+    margin: 0px auto;
+    width: 70%;
+    height: auto;
+    border: 1px solid red;
+}
+    
+} /* /tablet */
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+    
+.box{
+padding: 30px;
+}
+    
+    .addTaskInput{
+        width: 400px;
+    }
+    
+    #addTaskInput{
+        width: 440px;
+    }
+    
+    .list_title{
+        margin: 0px auto;
+        width: 50%;
+    }
+    
+    .list{
+        margin: 0px auto;
+        width: 50%;
+        border: 1px solid green;
+    }
+    
+.checkDiv{
+    width: 15%;
+    float: left;
+    font-size: 30px;
+    
+}
+    
+.taskDiv{
+    width: 85%;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+} /* end Desktop */
+
+
+
+.singleTaskWrapper{
+    width: 700px;
+    height: auto;
+}
+
+.checkDiv2{
+    width: 5%;
+    color: blueviolet;
+    font-size: 20px;
+    float: left;
+}
+
+
+.buttonDiv{
+    width: 10%;
+/*    background-color: red;*/
+    float: left;
+}
+
+/*
+.singleCompleteTaskWrapper{
+    width: 700px;
+    height: auto;
+}
+*/
+
+
