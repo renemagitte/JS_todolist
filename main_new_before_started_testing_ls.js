@@ -10,10 +10,10 @@ const removeCompletedTasksButton = document.getElementById('removeCompletedTasks
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 var allTasks = [
-    {
-     task: 'Bygga ett altare tillägnat Paddy McAloon',
-    completed: false
-    }
+//    {
+//     task: 'Bygga ett altare tillägnat Paddy McAloon',
+//    completed: false
+//    }
 ];
 
 function taskObj(task, completed){
@@ -88,17 +88,15 @@ function createTaskRowElement(taskParameter, status, index){
     //checkDiv.appendChild(completeTaskButton);
     taskDiv.innerHTML = taskParameter;
     taskDiv.appendChild(removeSingleTaskButton);
-            removeSingleTaskButton.classList.add('button_delete');
-            removeSingleTaskButton.setAttribute("value", "Delete");
+            removeSingleTaskButton.classList.add('button_delete');  // fix these buttons
+            removeSingleTaskButton.setAttribute("value", "Delete"); // fix these buttons
 
         checkDiv.addEventListener('click', function(){
             checkDiv.setAttribute("id", "checkAnimaionId");
             checkDiv.innerHTML = `<span class="glyphicon glyphicon-glyphicon glyphicon-heart" aria-hidden="true"></span>`;
-            
                 setTimeout(function (){
                   checkDiv.setAttribute("id", "checkAnimaionId2");
               }, 1400); 
-            
               setTimeout(function (){
                   completeTask(index); 
               }, 2000);  
@@ -123,7 +121,6 @@ function fetchTaskListFromArray(){
     }
 }
 
-
 function completeTask(index) {
     allTasks[index].completed = true;
     removeListElement(list); // clearing existing list...
@@ -141,24 +138,18 @@ function removeSingleTask(index) {
     allTasks.splice(index, 1);
 }
 
-//buggig funktion?????!!!:
 function removeCompletedTasksFromArray(){
-    for (i = 0; i <= allTasks.length; i++) {
+    allTasks = allTasks.filter(filterFunctionTest);  
+}
 
-        if(allTasks[i].completed = true){ 
-            
-            //removeSingleTask(i);
-            
-            allTasks.splice(allTasks[i], 1); 
-            //allTasks.splice(i); 
-            
-        } 
-    }
+function filterFunctionTest(hej){
+    return hej.completed === false;
 }
 
 function removeAllTasksFromArray(status){
     allTasks = [];
 }
+
 
 function doubletCheck(){
     event.preventDefault(); 
