@@ -59,7 +59,10 @@ function saveTaskToArray(){
     allTasks.push(newTaskObj); 
     
 // ****LS TEST****
-    localStorage = localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    //localStorage = localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+
+    console.log(localStorage);
 // ****LS TEST****
     
 }
@@ -114,7 +117,10 @@ function createTaskRowElement(taskParameter, status, index){
             removeSingleTask(index);
             removeListElement(list);
             removeListElement(completedTaskList);
-            fetchTaskListFromArray();
+            //fetchTaskListFromArray();
+            /*** LS TEST ***/
+            fetchTaskListFromLocalStorage();
+            /*** LS TEST ***/
         })
     
 }
@@ -137,9 +143,9 @@ function fetchTaskListFromLocalStorage(){
         //funkar om man har denna med:
         dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
         
-        console.log(dataFromLocalStorage[i].task);
-        console.log(dataFromLocalStorage[i].completed);
-        console.log(dataFromLocalStorage.indexOf(dataFromLocalStorage[i]));
+//        console.log(dataFromLocalStorage[i].task);
+//        console.log(dataFromLocalStorage[i].completed);
+//        console.log(dataFromLocalStorage.indexOf(dataFromLocalStorage[i]));
         
         var fetchTaskFromArray = dataFromLocalStorage[i].task;
         var fetchStatusFromArray = dataFromLocalStorage[i].completed; 
@@ -161,9 +167,33 @@ function fetchTaskListFromLocalStorage(){
 
 function completeTask(index) {
     allTasks[index].completed = true;
+    
+// ****LS TEST****
+    
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    
+//    dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
+//    
+// ****LS TEST****
+    // här ska jag sätta specifik task till true i LS
+    //localStorage.setItem('allTasks[index].completed', JSON.stringify(allTasks)) = true;
+    
+    //JSON.parse(localStorage.taskObj[index].completed) = true;
+    
+//localStorage.setItem('completed', JSON.stringify(true));
+//console.log(JSON.parse(localStorage.getItem('completed')));
+//    console.log(localStorage);
+    
+// ****LS TEST****
+    
     removeListElement(list); // clearing existing list...
     removeListElement(completedTaskList);
-    fetchTaskListFromArray();
+//    fetchTaskListFromArray();
+    
+// ****LS TEST****
+        fetchTaskListFromLocalStorage();
+// ****LS TEST****
+    
 }
 
 function removeListElement(listToRemove){
@@ -176,21 +206,12 @@ function removeSingleTask(index) {
     allTasks.splice(index, 1);
 }
 
-//buggig funktion?????!!!:
 function removeCompletedTasksFromArray(){
-    for (i = 0; i <= allTasks.length; i++) {
+    allTasks = allTasks.filter(filterFunctionTest);  
+}
 
-        if(allTasks[i].completed = true){ 
-            
-            allTasks.splice(i, 1);
-            
-            //removeSingleTask(i);
-            
-            //allTasks.splice(allTasks[i], 1); 
-            //allTasks.splice(i); 
-            
-        } 
-    }
+function filterFunctionTest(hej){
+    return hej.completed === false;
 }
 
 function removeAllTasksFromArray(status){

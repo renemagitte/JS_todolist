@@ -1,7 +1,10 @@
 
 body{
-/*    background-image: url('../images/heartsbg.jpg');*/
     font-family: 'Poppins', sans-serif;
+}
+
+.clear{
+    clear:both;
 }
 
 .header{
@@ -13,7 +16,6 @@ body{
     height: auto;
     margin: 0px auto;
     width: 100%;
-
 }
 
 .subtitle{
@@ -53,7 +55,6 @@ body{
     font-weight: 600;
     font-size: 1.4rem;
     color: black;
-/*    border-top: 1px solid darkred;*/
 }
 
 .box{
@@ -163,11 +164,10 @@ body{
     margin-top: 10px;
     padding-top: 10px;
 }
-    
-.box{
-    text-align: center;
-    width: 100%;
-}
+
+    #addTaskInput{
+        width: 240px;
+    }
 
     
 .list{
@@ -215,6 +215,10 @@ body{
     padding-top: 0px;
 }
     
+    #addTaskInput{
+        width: 300px;
+    }
+    
 .singleTaskWrapper{
     margin: 0px auto;
     width: 70%;
@@ -226,16 +230,48 @@ body{
 
 /* Desktop */
 @media screen and (min-width: 1024px) {
-
-}
-
-
+    
 .box{
-    width: 700px;
-    height: auto;
-    padding: 20px;
-    box-sizing: border-box;
+padding: 30px;
 }
+    
+    .addTaskInput{
+        width: 400px;
+    }
+    
+    #addTaskInput{
+        width: 440px;
+    }
+    
+    .list_title{
+        margin: 0px auto;
+        width: 50%;
+    }
+    
+    .list{
+        margin: 0px auto;
+        width: 50%;
+        border: 1px solid green;
+    }
+    
+.checkDiv{
+    width: 15%;
+    float: left;
+    font-size: 30px;
+    
+}
+    
+.taskDiv{
+    width: 85%;
+    float: left;
+    font-size: 16px;
+    padding-top: 5px;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+} /* end Desktop */
+
+
 
 .singleTaskWrapper{
     width: 700px;
