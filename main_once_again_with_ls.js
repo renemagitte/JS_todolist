@@ -16,19 +16,19 @@ var allTasks = [
 //    }
 ];
 
-// loads in stored tasks from local storage to array:
-allTasks = JSON.parse(localStorage.getItem('allTasks'));
-
-// fetch allready existing items into page:
-fetchTaskListFromLocalStorage();
-
 function taskObj(task, completed){
     this.task = task;
     this.completed = completed;
 }
 
+/* Loads in stored tasks from local storage to array: */
+allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
-/* Event Listeners (exists also inside createTaskRowElement-function) */
+/* Fetches allready existing items into page: */
+fetchTaskListFromLocalStorage();
+
+
+/*** Event Listeners (exists also inside createTaskRowElement-function) ***/
 
 addTaskButton.addEventListener('click', function(){ 
     if(!(doubletCheck())){  
@@ -67,34 +67,35 @@ function saveTaskToArray(){
     var newTaskObj = new taskObj(newTask, false); // adding status: task != completed yet
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
     allTasks.push(newTaskObj); 
-    
-// ****LS TEST****
-    // saving allTasks-array to local storage
+    /* saving allTasks-array to local storage: */
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
-// ****LS TEST**** 
-    
-    //console.log(localStorage);
 }
 
 function createTaskRowElement(taskParameter, status, index){
-    /* Creating DOM elements... */ 
+    /*** Creating DOM elements... ***/ 
     const singleTaskWrapper = document.createElement('div');
     const checkDiv = document.createElement('div');
     const taskDiv = document.createElement('div');
-    const removeSingleTaskButton = document.createElement("button"); //måste sätta value på denna knapp???
+    const removeSingleTaskButton = document.createElement("button");
 
-    /* ...add classes/styling to these elements... */    
+    /*** ...add classes/styling to these elements... ***/    
     singleTaskWrapper.classList.add('singleTaskWrapper');
     checkDiv.classList.add('checkDiv');
-    taskDiv.classList.add('taskDiv');
-    // If task is equal to most recent added task in array, it means it's new and deserves a fade in-animation:
-    if(allTasks[allTasks.length-1].task === taskParameter){
+    
+    /* If task is equal to most recent added task in array, 
+    it means it's new and deserves a fade in-animation: */
+    var allTasksArrayForCheckingLastTask = JSON.parse(localStorage.getItem('allTasks'));
+    if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){ 
         checkDiv.classList.add('fadeIn');
     }
-
-    /* Release of js-elements into DOM */
     
-    // Checking if task should go to incomplete or completed list 
+    taskDiv.classList.add('taskDiv');
+    removeSingleTaskButton.classList.add('button_delete_single');
+    removeSingleTaskButton.innerHTML = 'Delete';
+
+    /*** Release of js-elements into DOM ***/
+    
+    /* Checking if task should go to incomplete or completed list: */
     if(status === false){
         list.appendChild(singleTaskWrapper);
     }else if(status === true){
@@ -104,13 +105,11 @@ function createTaskRowElement(taskParameter, status, index){
     singleTaskWrapper.appendChild(checkDiv);
     singleTaskWrapper.appendChild(taskDiv);
 
-    /* Filling the elements with dynamic content */
+    /*** Filling the elements with dynamic content ***/
     checkDiv.innerHTML = trueOrFalse(status);
     //checkDiv.appendChild(completeTaskButton);
     taskDiv.innerHTML = taskParameter;
     taskDiv.appendChild(removeSingleTaskButton);
-            removeSingleTaskButton.classList.add('button_delete');  // fix these buttons
-            removeSingleTaskButton.setAttribute("value", "Delete"); // fix these buttons
 
         checkDiv.addEventListener('click', function(){
             checkDiv.setAttribute("id", "checkAnimaionId");

@@ -5,7 +5,7 @@ body{
 }
 
 .clear{
-    clear:both;
+    clear: both;
 }
 
 .header{
@@ -81,19 +81,44 @@ body{
 
 .addTaskButton{
     font-size: 14px;
-    color: white;
-    background-color: darkred;
-    //border: 1px solid black;
-/*    border-radius: 20px;*/
-    border-radius: 50%;
+    color: black;
+    background-color: #e7e7e7;
+    border: 1px grey;
+    border-radius: 25%;
     height: 30px;
     width: 30px;
     margin-left: 10px;
 }   
 
 .button_delete {
+/*
     background-color: #4CAF50;
     border-radius: 15px;
+*/
+    font-size: 14px;
+    color: black;
+    background-color: #e7e7e7;
+    border: 1px grey;
+    border-radius: 20px;
+    height: 30px;
+    width: 160px;
+    margin-left: 10px;
+}
+
+.button_delete_single {
+/*
+    background-color: #4CAF50;
+    border-radius: 15px;
+*/
+    font-size: 8px;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    background-color: #e7e7e7;
+    border: 1px grey;
+    border-radius: 20px;
+    height: 16px;
+    width: 40px;
+    margin-left: 10px;
 }
 
 /* Animations */
@@ -176,14 +201,18 @@ body{
 
 
 /* Mobile */
-@media screen and (max-width: 699px) {
-  
+@media screen and (max-width: 500px) {
+ 
+    .header{
+        padding-top: 20px;
+    }
 .subtitle{
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
 }
     
 .box{
+    width: 100%;
     padding-top: 20px;
 }
 
@@ -194,7 +223,7 @@ body{
 .list_title{
     margin: 0px auto;
     padding: 20px;
-    padding-left: 40px;
+/*    padding-left: 40px;*/
 }
     
 .list{
@@ -240,93 +269,145 @@ body{
 }
 
 /* Tablet */
-@media screen and (min-width: 700px) and (max-width: 1023px) {
-
+@media screen and (min-width: 501px) and (max-width: 1023px) {
+    
+    .header{
+        padding-top: 20px;
+    }
 .subtitle{
-    margin-top: 0px;
-    padding-top: 0px;
+    margin-top: 20px;
+    padding-top: 20px;
 }
     
-    #addTaskInput{
-        width: 300px;
-    }
+.box{
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#addTaskInput{
+    width: 376px;
+}
+    
+.list_title{
+    width: 600px;
+    margin: 0px auto;
+    padding: 20px;
+}
+    
+.list{
+    width: 600px;
+    min-height: 38px;
+    margin: 0px auto;
+}
+    
+.completedTaskList{
+    width: 600px;
+    min-height: 38px;
+    margin: 0px auto;
+}
     
 .singleTaskWrapper{
-    margin: 0px auto;
-    width: 70%;
+    width: 100%;
     height: auto;
-    border: 1px solid red;
+    margin: 0px auto;
+    padding-left: 10px;
 }
+
+.checkDiv{
+    width: 8%;
+    height: 38px;
+    float: left;
+    text-align: center;
+    font-size: 28px;
+
+}
+
+.taskDiv{
+    width: 92%;
+    min-height: 38px;
+    font-weight: 400;
+    padding-top: 6px;
+    padding-left: 15px;
+}
+    
+.button_wrapper{
+    padding: 20px; 
+}
+
     
 } /* /tablet */
 
 /* Desktop */
 @media screen and (min-width: 1024px) {
+     .header{
+        padding-top: 20px;
+    }
+.subtitle{
+    margin-top: 20px;
+    padding-top: 20px;
+}
     
 .box{
-padding: 30px;
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#addTaskInput{
+    width: 440px;
 }
     
-    .addTaskInput{
-        width: 400px;
-    }
+.list_title{
+    width: 600px;
+    margin: 0px auto;
+    padding: 20px;
+}
     
-    #addTaskInput{
-        width: 440px;
-    }
+.list{
+    width: 600px;
+    min-height: 38px;
+    margin: 0px auto;
+}
     
-    .list_title{
-        margin: 0px auto;
-        width: 50%;
-    }
+.completedTaskList{
+    width: 600px;
+    min-height: 38px;
+    margin: 0px auto;
+}
     
-    .list{
-        margin: 0px auto;
-        width: 50%;
-        border: 1px solid green;
-    }
-    
+.singleTaskWrapper{
+    width: 100%;
+    height: auto;
+    margin: 0px auto;
+    padding-left: 10px;
+}
+
 .checkDiv{
-    width: 15%;
+    width: 8%;
+    height: 38px;
     float: left;
-    font-size: 30px;
-    
+    text-align: center;
+    font-size: 28px;
+
 }
-    
+
 .taskDiv{
-    width: 85%;
-    font-size: 16px;
-    padding-top: 5px;
+    width: 92%;
+    min-height: 38px;
+    font-weight: 400;
+    padding-top: 6px;
+    padding-left: 15px;
 }
+    
+.button_wrapper{
+    padding: 20px; 
+}
+
 
 } /* end Desktop */
 
-
-
-.singleTaskWrapper{
-    width: 700px;
-    height: auto;
-}
-
-.checkDiv2{
-    width: 5%;
-    color: blueviolet;
-    font-size: 20px;
-    float: left;
-}
-
-
-.buttonDiv{
-    width: 10%;
-/*    background-color: red;*/
-    float: left;
-}
-
-/*
-.singleCompleteTaskWrapper{
-    width: 700px;
-    height: auto;
-}
-*/
 
 
