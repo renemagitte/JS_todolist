@@ -10,11 +10,16 @@ const removeCompletedTasksButton = document.getElementById('removeCompletedTasks
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 var allTasks = [
-
+//    {
+//     task: 'Bygga ett altare tillägnat Paddy McAloon',
+//    completed: false
+//    }
 ];
 
+// loads in stored tasks from local storage to array:
 allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
+// fetch allready existing items into page:
 fetchTaskListFromLocalStorage();
 
 function taskObj(task, completed){
@@ -199,6 +204,7 @@ function removeListElement(listToRemove){
 
 function removeSingleTask(index) {
     allTasks.splice(index, 1);
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
 }
 
 function removeCompletedTasksFromArray(){
@@ -214,6 +220,8 @@ function filterFunctionTest(hej){
 
 function removeAllTasksFromArray(status){
     allTasks = [];
+    //updating localstorage 
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
 }
 
 function doubletCheck(){

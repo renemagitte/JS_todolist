@@ -1,6 +1,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
+    margin: 0px auto;
 }
 
 .clear{
@@ -48,6 +49,12 @@ body{
     color: darkred;
 }
 
+#addTaskInput{
+    font-family: 'Gloria Hallelujah', cursive;
+    border: none;
+    border-bottom: 2px dotted grey;
+}
+
 .list_title{
     width: 100%;
     padding-left: 20px;
@@ -60,25 +67,33 @@ body{
 .box{
     text-align: center;
     width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.taskDiv{
+    float: left;
+    font-family: 'Gloria Hallelujah', cursive;
 }
 
 .button_wrapper{
     text-align: center;
 }
 
-.button_delete {
-    background-color: #4CAF50; /* Green */
-/*
-    border: none;
-    color: #4CAF50;
-    padding: 0px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 0.6px;
-    margin: 4px 2px; */
-    border-radius: 15px;
+.addTaskButton{
+    font-size: 14px;
+    color: white;
+    background-color: darkred;
+    //border: 1px solid black;
+/*    border-radius: 20px;*/
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}   
 
+.button_delete {
+    background-color: #4CAF50;
+    border-radius: 15px;
 }
 
 /* Animations */
@@ -94,16 +109,16 @@ body{
 @keyframes heartbeat {
   0% {
     padding: 0;
-    height: 45px;
+    height: 38px;
     font-size: 28px;
   }
   50% {
-    height: 45px;
+    height: 38px;
     font-size: 30px;
     color: darkred;
   }
   100% {
-    height: 45px;
+    height: 38px;
     font-size: 32px;
     color: red;
 
@@ -117,16 +132,16 @@ body{
 @keyframes fadein {
   0% {
     padding: 0;
-    height: 45px;
+    height: 38px;
     opacity: 0;
     color: red;
   }
   50% {
-    height: 45px;
+    height: 38px;
     color: darkred;
   }
   100% {
-    height: 45px;
+    height: 38px;
     opacity: 1;
 
   }
@@ -139,40 +154,53 @@ body{
 @keyframes fadeout {
   0% {
     padding: 0;
-    height: 45px;
+    height: 38px;
     opacity: 1;
     color: red;
   }
   50% {
-    height: 45px;
+    height: 38px;
     color: darkred;
   }
   100% {
-    height: 45px;
+    height: 38px;
     opacity: 0;
 
   }
 }
 
+.singleTaskWrapper{
+    width: 700px;
+    height: auto;
+}
+
 
 /* Mobile */
 @media screen and (max-width: 699px) {
-
-
-    
+  
 .subtitle{
     margin-top: 10px;
     padding-top: 10px;
 }
+    
+.box{
+    padding-top: 20px;
+}
 
-    #addTaskInput{
-        width: 240px;
-    }
-
+#addTaskInput{
+    width: 240px;
+}
+    
+.list_title{
+    margin: 0px auto;
+    padding: 20px;
+    padding-left: 40px;
+}
     
 .list{
     width: 100%; 
-    min-height: 45px;
+    min-height: 38px;
+    margin: 0px auto;  
 }
     
 .completedTaskList{
@@ -183,25 +211,29 @@ body{
 .singleTaskWrapper{
     width: 100%;
     height: auto;
-    padding-left: 20px;
+    margin: 0px auto;
+    padding-left: 25px;
 }
 
 .checkDiv{
-    width: 15%;
-    height: 45px;
+    width: 8%;
+    height: 38px;
     float: left;
     text-align: center;
     font-size: 28px;
+
 }
 
 .taskDiv{
-    width: 85%;
-    min-height: 45px;
-    float: left;
-    font-family: 'Gloria Hallelujah', cursive;
+    width: 92%;
+    min-height: 38px;
     font-weight: 400;
     padding-top: 6px;
     padding-left: 10px;
+}
+    
+.button_wrapper{
+    padding: 20px; 
 }
     
     
@@ -263,10 +295,8 @@ padding: 30px;
     
 .taskDiv{
     width: 85%;
-    float: left;
     font-size: 16px;
     padding-top: 5px;
-    font-family: 'Gloria Hallelujah', cursive;
 }
 
 } /* end Desktop */
@@ -278,11 +308,6 @@ padding: 30px;
     height: auto;
 }
 
-.checkDiv{
-    width: 5%;
-    float: left;
-}
-
 .checkDiv2{
     width: 5%;
     color: blueviolet;
@@ -290,10 +315,6 @@ padding: 30px;
     float: left;
 }
 
-.taskDiv{
-    width: 95%;
-    float: left;
-}
 
 .buttonDiv{
     width: 10%;
@@ -301,28 +322,11 @@ padding: 30px;
     float: left;
 }
 
+/*
 .singleCompleteTaskWrapper{
     width: 700px;
     height: auto;
 }
+*/
 
-.checkCompleteDiv{
-    width: 5%;
-    background-color: aquamarine;
-    float: left;
-}
 
-.taskCompleteDiv{
-    width: 95%;
-    float: left;
-}
-
-.title{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 10rem;
-    color: black;
-    background-color: gainsboro;
-/*    padding: 20px;*/
-
-}
