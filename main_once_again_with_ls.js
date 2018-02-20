@@ -25,7 +25,7 @@ function taskObj(task, completed){
 allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
 fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
 
-var lastIndexChecked; /* decalring variable for saving index of latest checked tasked */
+var lastIndexChecked; /* declaring variable for saving index of latest checked tasked */
 
 
 /*** Event Listeners (exists also inside createTaskRowElement-function) ***/
@@ -83,6 +83,7 @@ function fetchTaskListFromLocalStorage(){
 }
 
 function createTaskRowElement(taskParameter, status, index){
+    
     /*** Creating DOM elements... ***/ 
     const singleTaskWrapper = document.createElement('div');
     const checkDiv = document.createElement('div');
@@ -100,9 +101,25 @@ function createTaskRowElement(taskParameter, status, index){
     it means it's new and deserves a fade in-animation: */
     // FUNKAR med senaste:
     var allTasksArrayForCheckingLastTask = JSON.parse(localStorage.getItem('allTasks'));
-    if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
-        checkDiv.classList.add('fadeIn');  
+    
+//    if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
+//        checkDiv.classList.add('fadeIn');  
+//    }
+    
+    if(lastIndexChecked === index){
+        console.log(lastIndexChecked);
+        console.log(index);
+        checkDiv.classList.add('fadeIn');
+        lastIndexChecked = '';
     }
+    
+    if(!(lastIndexChecked === index)){
+        console.log("hej");
+        if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
+        checkDiv.classList.add('fadeIn');  
+        }
+    }
+
     
     
 //    var allTasksArrayForCheckingLastTask = JSON.parse(localStorage.getItem('allTasks'));
@@ -166,7 +183,14 @@ function createTaskRowElement(taskParameter, status, index){
 function completeTask(index) {
     allTasks[index].completed = true;
     
-    lastIndexChecked = index; /* store index for comparing later */  
+    /***********************/
+    
+    lastIndexChecked = index; /* store index for comparing later */
+    
+    console.log(lastIndexChecked);
+    console.log(index);
+    
+    /***********************/
     
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* updating localstorage */
     removeListElement(list);
