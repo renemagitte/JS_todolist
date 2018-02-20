@@ -11,27 +11,11 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 /*** Various important stuff ***/
 
-var allTasks = [
-    {
-     task: 'Bygga ett altare tillägnat Paddy McAloon',
-     completed: false
-    },
-    {
-     task: "Bli utvecklare... av frysrättvarumärket Orby's piroger. Och konkurrera ut Familjen Dafgård",
-     completed: false
-    }
-];
+var allTasks = [];
 
 function taskObj(task, completed){
     this.task = task;
     this.completed = completed;
-}
-
-/* Loading example tasks if the page loads for the first time */
-var loadFirstTime = true;
-if(loadFirstTime = true){
-    localStorage.setItem('allTasks', JSON.stringify(allTasks));
-    loadFirstTime = false;
 }
 
 allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
