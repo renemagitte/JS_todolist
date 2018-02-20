@@ -21,7 +21,7 @@ function taskObj(task, completed){
 allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
 fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
 
-var lastActiveTask; /* declaring variable for saving task of latest checked task */
+var lastActiveTask; /* declaring variable for saving task of latest added OR checked task */
 
 /*** Event Listeners (exists also inside createTaskRowElement-function) ***/
 
@@ -55,9 +55,7 @@ removeAllTasksButton.addEventListener('click', function(){
 function saveTaskToArray(){
     event.preventDefault(); 
     var newTask = addTaskInput.value;
-    
     lastActiveTask = addTaskInput.value; /* saving task to variable for later comparision */
-    
     addTaskInput.value = ''; /* clear input field, thus preparing for next input */
     var newTaskObj = new taskObj(newTask, false); /* adding status: task != completed yet */
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
