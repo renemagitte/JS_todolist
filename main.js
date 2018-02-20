@@ -8,6 +8,7 @@ const removeCompletedTasksButton = document.getElementById('removeCompletedTasks
 const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 
+
 /*** Various important stuff ***/
 
 var allTasks = [
@@ -26,6 +27,7 @@ allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored task
 fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
 
 var lastIndexChecked; /* declaring variable for saving index of latest checked tasked */
+var lastActiveTask;
 
 
 /*** Event Listeners (exists also inside createTaskRowElement-function) ***/
@@ -54,11 +56,15 @@ removeAllTasksButton.addEventListener('click', function(){
 })
 
 
+
 /*** Functions ***/
 
 function saveTaskToArray(){
     event.preventDefault(); 
     var newTask = addTaskInput.value;
+    
+    lastActiveTask = addTaskInput.value; /* saving task to variable for later comparision */
+    
     addTaskInput.value = ''; /* clear input field, thus preparing for next input */
     var newTaskObj = new taskObj(newTask, false); /* adding status: task != completed yet */
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -92,54 +98,11 @@ function createTaskRowElement(taskParameter, status, index){
 
     /*** ...add classes/styling to these elements... ***/    
     singleTaskWrapper.classList.add('singleTaskWrapper');
-    checkDiv.classList.add('checkDiv');
-    
-/********* BUG AREA, FIX THIS!! ***********/
-    
-    /* If index is either the same as latest completed id - saved as lastIndexChecked running completeTask(),
-    OR task is equal to most recent added task in local storage - fetched as allTasksArrayForCheckingLastTask, 
-    it means it's new and deserves a fade in-animation: */
-    // FUNKAR med senaste:
-    var allTasksArrayForCheckingLastTask = JSON.parse(localStorage.getItem('allTasks'));
-    
-//    if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
-//        checkDiv.classList.add('fadeIn');  
-//    }
-    
-    if(lastIndexChecked === index){
-        console.log(lastIndexChecked);
-        console.log(index);
+    checkDiv.classList.add('checkDiv'); 
+    /* if last added OR completed, it deserves fadeIn-style: */
+    if(lastActiveTask === taskParameter){ 
         checkDiv.classList.add('fadeIn');
-        lastIndexChecked = '';
     }
-    
-    if(!(lastIndexChecked === index)){
-        console.log("hej");
-        if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
-        checkDiv.classList.add('fadeIn');  
-        }
-    }
-
-    
-    
-//    var allTasksArrayForCheckingLastTask = JSON.parse(localStorage.getItem('allTasks'));
-//    
-//    if(lastIndexChecked === index){
-//        checkDiv.classList.add('fadeIn');
-//    }
-    
-//    if(!(lastIndexChecked === index)){
-//        if(allTasksArrayForCheckingLastTask[allTasksArrayForCheckingLastTask.length-1].task === taskParameter){
-//        checkDiv.classList.add('fadeIn'); 
-//        }
-//    }
-        
-    //lastIndexChecked = ''; /* empty the variable when it's been used */
-    
-
-    
-/*********************************************/
-    
     taskDiv.classList.add('taskDiv');
     removeSingleTaskButton.classList.add('button_delete_single');
     removeSingleTaskButton.innerHTML = 'Delete';
@@ -155,7 +118,7 @@ function createTaskRowElement(taskParameter, status, index){
     singleTaskWrapper.appendChild(taskDiv);
 
     /*** ...Filling the elements with dynamic content ***/
-    checkDiv.innerHTML = trueOrFalse(status);
+    checkDiv.innerHTML = trueOrFalseCheckPicture(status);
     taskDiv.innerHTML = taskParameter;
     taskDiv.appendChild(removeSingleTaskButton);
 
@@ -176,22 +139,12 @@ function createTaskRowElement(taskParameter, status, index){
             removeListElement(list);
             removeListElement(completedTaskList);
             fetchTaskListFromLocalStorage();
-        })
-    
+        })    
 }
 
 function completeTask(index) {
     allTasks[index].completed = true;
-    
-    /***********************/
-    
-    lastIndexChecked = index; /* store index for comparing later */
-    
-    console.log(lastIndexChecked);
-    console.log(index);
-    
-    /***********************/
-    
+    lastActiveTask = allTasks[index].task; /* store task for comparing later */
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* updating localstorage */
     removeListElement(list);
     removeListElement(completedTaskList);
@@ -210,12 +163,12 @@ function removeSingleTask(index) {
 }
 
 function removeCompletedTasksFromArray(){
-    allTasks = allTasks.filter(filterFunctionTest); 
+    allTasks = allTasks.filter(filterFalseOnly); 
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* updating localstorage */
 }
 
-function filterFunctionTest(hej){
-    return hej.completed === false;
+function filterFalseOnly(array){
+    return array.completed === false;
 }
 
 function removeAllTasksFromArray(status){
@@ -241,7 +194,7 @@ function doubletCheck(){
     }  
 }
 
-function trueOrFalse(status){
+function trueOrFalseCheckPicture(status){
         if(status === false){
         return `<span class="glyphicon glyphicon-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>`;
         }else if(status === true){
