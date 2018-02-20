@@ -14,7 +14,11 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 var allTasks = [
     {
      task: 'Bygga ett altare tillägnat Paddy McAloon',
-    completed: false
+     completed: false
+    },
+    {
+     task: "Bli utvecklare... av frysrättvarumärket Orby's piroger. Och konkurrera ut Familjen Dafgård",
+     completed: false
     }
 ];
 
@@ -23,12 +27,17 @@ function taskObj(task, completed){
     this.completed = completed;
 }
 
+/* Loading example tasks if the page loads for the first time */
+var loadFirstTime = true;
+if(loadFirstTime = true){
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    loadFirstTime = false;
+}
+
 allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
 fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
 
-var lastIndexChecked; /* declaring variable for saving index of latest checked tasked */
-var lastActiveTask;
-
+var lastActiveTask; /* declaring variable for saving task of latest checked task */
 
 /*** Event Listeners (exists also inside createTaskRowElement-function) ***/
 
@@ -70,16 +79,13 @@ function saveTaskToArray(){
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
     allTasks.push(newTaskObj); 
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* saving allTasks-array to local storage: */
-    
-//    getArrayToCheckLastIndex = JSON.parse(localStorage.getItem('allTasks'));
-//    lastIndexChecked = getArrayToCheckLastIndex.indexOf(getArrayToCheckLastIndex[i]);
 }
 
 function fetchTaskListFromLocalStorage(){
     
     dataFromLocalStorage = JSON.parse(localStorage.getItem('allTasks'));
 
-    for(var i = 0; i < dataFromLocalStorage.length; i++){
+    for(let i = 0; i < dataFromLocalStorage.length; i++){
         var fetchTaskFromArray = dataFromLocalStorage[i].task;
         var fetchStatusFromArray = dataFromLocalStorage[i].completed; 
         var fetchTaskIndexFromArray = dataFromLocalStorage.indexOf(dataFromLocalStorage[i]);
@@ -180,7 +186,7 @@ function doubletCheck(){
     event.preventDefault(); 
     var newTask = addTaskInput.value;
     
-    for (i = 0; i < allTasks.length; i++) {
+    for(let i = 0; i < allTasks.length; i++){
             if(!(newTask === allTasks[i].task)){
                 return false;
             }else{
