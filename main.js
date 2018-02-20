@@ -11,10 +11,10 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 /*** Various important stuff ***/
 
 var allTasks = [
-//    {
-//     task: 'Bygga ett altare tillägnat Paddy McAloon',
-//    completed: false
-//    }
+    {
+     task: 'Bygga ett altare tillägnat Paddy McAloon',
+    completed: false
+    }
 ];
 
 function taskObj(task, completed){
