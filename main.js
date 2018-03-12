@@ -1,7 +1,7 @@
 
 /*** DOM Elements ***/
 const completedTaskList = document.getElementById('completedTaskList');
-const list = document.getElementById('list');
+const incompletedTaskList = document.getElementById('incompletedTaskList');
 const addTaskInput = document.getElementById('addTaskInput');
 const addTaskButton = document.getElementById('addTaskButton');
 const removeCompletedTasksButton = document.getElementById('removeCompletedTasksButton');
@@ -12,38 +12,48 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 /*** Various important stuff ***/
 
 var allTasks = [];
-
+    
 function taskObj(task, completed){
     this.task = task;
     this.completed = completed;
 }
 
-allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
-fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
+if(!(localStorage.length === 0)){
+    allTasks = JSON.parse(localStorage.getItem('allTasks')); /* Loads in stored tasks from local storage to array: */
+}
+
+if(!(allTasks.length === 0)){ 
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
+}
 
 var lastActiveTask; /* declaring variable for saving task of latest added OR checked task */
+
 
 /*** Event Listeners (exists also inside createTaskRowElement-function) ***/
 
 addTaskButton.addEventListener('click', function(){ 
-    if(!(doubletCheck())){  
-        saveTaskToArray();
-        removeListElement(list);
-        removeListElement(completedTaskList);
-        fetchTaskListFromLocalStorage();
-    }
+
+        var isThisADoublet = doubletCheck();
+    
+        if(isThisADoublet === false){
+            saveTaskToArray();
+            removeListElement(incompletedTaskList);
+            removeListElement(completedTaskList);
+            fetchTaskListFromLocalStorage();
+        }
 })
 
 removeCompletedTasksButton.addEventListener('click', function(){ 
     removeCompletedTasksFromArray();
-    removeListElement(list);
+    removeListElement(incompletedTaskList);
     removeListElement(completedTaskList);
     fetchTaskListFromLocalStorage();
 })
 
 removeAllTasksButton.addEventListener('click', function(){ 
     removeAllTasksFromArray();
-    removeListElement(list);
+    removeListElement(incompletedTaskList);
     removeListElement(completedTaskList);
     fetchTaskListFromLocalStorage();
 })
@@ -58,7 +68,7 @@ function saveTaskToArray(){
     lastActiveTask = addTaskInput.value; /* saving task to variable for later comparision */
     addTaskInput.value = ''; /* clear input field, thus preparing for next input */
     var newTaskObj = new taskObj(newTask, false); /* adding status: task != completed yet */
-    allTasks = JSON.parse(localStorage.getItem('allTasks'));
+    //allTasks = JSON.parse(localStorage.getItem('allTasks'));
     allTasks.push(newTaskObj); 
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* saving allTasks-array to local storage: */
 }
@@ -98,7 +108,7 @@ function createTaskRowElement(taskParameter, status, index){
     /*** ...Release of js-elements into DOM... ***/
     /* Checking if task should go to incomplete or completed list: */
     if(status === false){
-        list.appendChild(singleTaskWrapper);
+        incompletedTaskList.appendChild(singleTaskWrapper);
     }else if(status === true){
         completedTaskList.appendChild(singleTaskWrapper);
     }
@@ -124,7 +134,7 @@ function createTaskRowElement(taskParameter, status, index){
 
         removeSingleTaskButton.addEventListener('click', function(){
             removeSingleTask(index);
-            removeListElement(list);
+            removeListElement(incompletedTaskList);
             removeListElement(completedTaskList);
             fetchTaskListFromLocalStorage();
         })    
@@ -134,7 +144,7 @@ function completeTask(index) {
     allTasks[index].completed = true;
     lastActiveTask = allTasks[index].task; /* store task for comparing later */
     localStorage.setItem('allTasks', JSON.stringify(allTasks)); /* updating localstorage */
-    removeListElement(list);
+    removeListElement(incompletedTaskList);
     removeListElement(completedTaskList);
     fetchTaskListFromLocalStorage();
 }
@@ -167,11 +177,15 @@ function removeAllTasksFromArray(status){
 function doubletCheck(){
     event.preventDefault(); 
     var newTask = addTaskInput.value;
+
+    localStorage.setItem('allTasks', JSON.stringify(allTasks)); 
+    localStorageParseVariable = JSON.parse(localStorage.getItem('allTasks'));
     
-    for(let i = 0; i < allTasks.length; i++){
-            if(!(newTask === allTasks[i].task)){
-                return false;
-            }else{
+    if(!(localStorageParseVariable === null)){
+
+        for(let i = 0; i < localStorageParseVariable.length; i++){
+            var taskToCompare = localStorageParseVariable[i].task;
+            if(newTask === taskToCompare){
                 alert(`
                 Sorry, there can't be two identical tasks. 
                 But don't worry, you'll add a better one. 
@@ -179,7 +193,9 @@ function doubletCheck(){
                 `);  
                 return true;
             }
-    }  
+        }
+        return false;
+    }
 }
 
 function trueOrFalseCheckPicture(status){
