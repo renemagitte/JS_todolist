@@ -13,7 +13,7 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 var allTasks = [];
     
-function taskObj(task, completed){
+function TaskObj(task, completed){
     this.task = task;
     this.completed = completed;
 }
@@ -26,6 +26,13 @@ if(!(allTasks.length === 0)){
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
     fetchTaskListFromLocalStorage(); /* Fetches allready existing items into page: */
 }
+
+    /* If above not working, try this: */
+    /*
+      if(!localStorage.getItem('allTasks')){
+          localStorage.setItem('allTasks', JSON.stringify([]));
+      }
+    */
 
 var lastActiveTask; /* declaring variable for saving task of latest added OR checked task */
 
