@@ -13,7 +13,7 @@ const removeAllTasksButton = document.getElementById('removeAllTasksButton');
 
 var allTasks = [];
     
-function TaskObj(task, completed){
+function taskObj(task, completed){
     this.task = task;
     this.completed = completed;
 }
